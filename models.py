@@ -10,3 +10,4 @@ class ExperimentItem(BaseModel):
     duration: str  # 时长
     requirements: str  # 报名要求
     tel: int  # 电话号码
+    tags: list[str] = []
