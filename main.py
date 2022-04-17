@@ -1,25 +1,18 @@
+from random import shuffle
 from fastapi import FastAPI
-from pydantic import BaseModel
+from fakers import *
+from models import *
 
 app = FastAPI()
+experiment_table: list
 
 
-class ExperimentItem(BaseModel):
-    """实验信息"""
-    title: str         # 标题
-    description: str   # 简介
-    limit: int         # 人数上限
-    salary: str        # 薪酬
-    duration: str      # 时长
-    requirements: str  # 报名要求
-    tel: int           # 电话号码
+@app.post("/experiment/new/{item}")
+def new_experiment_item(item: ExperimentItem):
+    experiment_table.append(item)
 
 
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
-
-
-@app.get("/hello/{name}")
-async def say_hello(name: str):
-    return {"message": f"Hello {name}"}
+@app.get("/experiment/random/{n}")
+def get_random_experiment_items(n: int):
+    shuffle(experiment_table)
+    return experiment_table[:n]
