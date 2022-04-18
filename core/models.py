@@ -10,4 +10,6 @@ class ExperimentItem(BaseModel):
     duration: str  # 时长
     requirements: str  # 报名要求
     tel: int  # 电话号码
-    tags: list[str] = []
+    tags: list[str] = []  # 标签
+    start_time: int = 0
+    end_time: int = 0
