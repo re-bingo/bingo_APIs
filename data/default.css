@@ -1,0 +1,19 @@
+div {
+    horiz-align: center;
+    margin: 4em;
+    color: #5760a2;
+    font-size: 1em;
+    font-family: sans-serif;
+    text-align: center;
+}
+
+div img {
+    height: 5em;
+}
+
+a:link, a:visited, a:hover, a:active {
+    color: #5760a2;
+    font-family: sans-serif;
+    margin: 1em;
+}
+
