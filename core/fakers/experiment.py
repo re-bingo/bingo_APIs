@@ -16,7 +16,7 @@ class ExperimentItem(models.ExperimentItem):
 
     @staticmethod
     def fake_description(n=None):
-        return "\n".join(faker.paragraphs(n or randrange(4, 15)))
+        return "\n".join(faker.div(n or randrange(4, 15)))
 
     @staticmethod
     def fake_limit(min_=None, max_=None):

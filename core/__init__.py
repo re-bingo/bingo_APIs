@@ -46,6 +46,7 @@ class PersistentList:
         return len(self.list)
 
 
-from .experiment import app as experiment_router
+from .experiments import app as experiment_router
+from .scales import app as scale_router
 
-__all__ = {"experiment_router"}
+__all__ = {"experiment_router", "scale_router"}
