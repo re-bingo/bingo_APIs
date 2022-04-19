@@ -13,7 +13,8 @@ app.include_router(scale_router, prefix="/scales", tags=["scales"])
 app.include_router(experiment_router, prefix="/experiments", tags=["experiments"])
 
 
-@app.get("/{file}", name="get_static_file")
+@app.get("{file}", name="get_static_file")
 @cache
 def get_static_file(file: str):
-    return FileResponse(f"./data/{file or 'home.html'}")
+    print(file)
+    return FileResponse(f"./{file or '/data/home.html'}")
