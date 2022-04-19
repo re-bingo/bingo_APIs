@@ -1,12 +1,11 @@
-from random import shuffle
 from fastapi import FastAPI
-from diskcache import Deque
+from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.responses import RedirectResponse
-from core.fakers import ExperimentItem
+from core import experiment_router
 
-app = FastAPI()
-
+app = FastAPI(title="bingo APIs", description="python sever powered by FastAPI")
 doc = RedirectResponse("/redoc")
+app.add_middleware(GZipMiddleware, minimum_size=1024)
 
 
 @app.get("/")
@@ -15,31 +14,4 @@ def home_page():
     return doc
 
 
-class ExperimentAPI:
-    experiment_table = Deque(directory="data")
-    experiment_list = list(experiment_table)
-
-    @staticmethod
-    @app.post("/experiment/new")
-    def new_experiment_item(item: ExperimentItem):
-        ExperimentAPI.experiment_table.append(item)
-        ExperimentAPI.experiment_list.append(item)
-
-    @staticmethod
-    @app.put("/experiment/clear")
-    def clear_all_experiments():
-        ExperimentAPI.experiment_table.clear()
-        ExperimentAPI.experiment_list.clear()
-
-    @staticmethod
-    @app.get("/experiment/random/{n}")
-    def get_random_experiment_items(n: int):
-        shuffle(ExperimentAPI.experiment_list)
-        return ExperimentAPI.experiment_list[:n]
-
-    @staticmethod
-    @app.get("/fake_experiment")
-    def get_random_experiment_item():
-        new_item = ExperimentItem()
-        ExperimentAPI.new_experiment_item(new_item)
-        return new_item
+app.include_router(experiment_router, prefix="/experiment", tags=["experiment"])
