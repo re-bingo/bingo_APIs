@@ -1,26 +1,28 @@
 body {
-    padding-top: 200pt;
     font-family: sans-serif;
     text-align: center;
     horiz-align: center;
-    letter-spacing: 0.5pt;
+    letter-spacing: 0.4pt;
     transition: all 300ms;
+    line-height: 1.6em;
+}
+
+#whole {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
 }
 
 div {
-    margin: 4em;
+    position: relative;
     color: #5760a2;
     font-size: 1em;
-    vert-align: middle;
+    padding: 0.3em;
 }
 
 div img {
     height: 7em;
-}
-
-a:link, a:visited, a:hover, a:active {
-    color: #5760a2;
-    margin: 1em;
 }
 
 button {
@@ -30,14 +32,20 @@ button {
     border: 0 solid #5760a2;
     border-radius: 12px;
     padding: 1em;
-    font-size: 0.9em;
+    font-size: 1.1em;
     margin: 0.5em;
     transition: all 300ms;
 }
 
-button:hover {
+.doc:hover {
     color: #5760a2;
     box-shadow: #5760a2 0 2.5pt 0;
+}
+
+.ad:hover {
+    color: white;
+    background-color: #42B983;
+    box-shadow: #42B98380 0 5.5pt 0;
 }
 
 button span:before, button span:after {
@@ -45,16 +53,51 @@ button span:before, button span:after {
     transition: all 300ms;
 }
 
-button span:before {
+.doc span:before {
     content: "《 ";
 }
 
-button span:after {
+.doc span:after {
     content: " 》";
 }
 
-button:hover span:before, button:hover span:after {
+.doc:hover span:before, .doc:hover span:after {
     opacity: 1;
-    right: 0;
-    padding: 0;
+}
+
+.ad span:before {
+    content: "< ";
+    font-weight: bolder;
+}
+
+.ad span:after {
+    content: " >";
+    font-weight: bolder;
+}
+
+.ad:hover span:before, .ad:hover span:after {
+    opacity: 1;
+}
+
+a:link, a:visited, a:hover, a:active {
+    color: #5760a2;
+    margin: 1em;
+}
+
+code {
+    letter-spacing: 0;
+    color: black;
+    font-family: "JetBrains Mono", Consolas, monospace;
+}
+
+div > div > code {
+    color: #42B983;
+    font-weight: bolder;
+}
+
+div > div {
+    font-family: sans-serif;
+    font-size: 0.9em;
+    font-weight: normal;
+    padding: 0.15em;
 }
