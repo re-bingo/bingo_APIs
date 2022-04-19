@@ -58,3 +58,6 @@ class ExperimentItem(models.ExperimentItem):
         }
         params.update(kwargs)
         super().__init__(**params)
+
+
+ExperimentItem.__name__ = "Fake" + ExperimentItem.__name__
