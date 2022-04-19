@@ -5,8 +5,8 @@ from random import choice, randrange, shuffle
 
 path = __package__.replace(".", "/")
 
-possible_titles = open(f"{path}/titles.txt").read().strip().split()
-possible_tags = open(f"{path}/tags.txt").read().strip().split()
+possible_titles = open(f"{path}/titles.txt", encoding="utf-8").read().strip().split()
+possible_tags = open(f"{path}/tags.txt", encoding="utf-8").read().strip().split()
 
 
 class ExperimentItem(models.ExperimentItem):
