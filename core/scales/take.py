@@ -13,7 +13,7 @@ flattened = {title: "\n".join("\n".join(div) for div in content.values())
              for title, content in scales.items()}
 
 
-@app.get("/", response_model=list[str])
+@app.get("", response_model=list[str])
 def get_titles():
     """get all the titles on the OBHRM wiki"""
     return titles

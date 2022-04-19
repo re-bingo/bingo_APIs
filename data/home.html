@@ -3,19 +3,26 @@
 <head>
     <meta charset="UTF-8">
     <title>bingo! welcome to homepage!</title>
-    <link rel="stylesheet" type="text/css" href="/data/default.css">
+    <link rel="stylesheet" type="text/css" href="default.css">
 </head>
 <body>
-
 <div>
-    <img src="/data/logo_rounded.png" alt="logo">
-    <h3> Bingo! 您的随身科研助理</h3>
-</div>
 
-<div>
-    <a href="/redoc">可选的API文档</a>
-    <a href="/docs">交互式API文档</a>
-</div>
+    <div>
+        <img src="logo_rounded.png" alt="logo">
+        <h3> Bingo! 您的随身科研助理 </h3>
+    </div>
 
+    <div>
+        <button onclick="window.location.href='/redoc'">
+            <span>可选的API文档</span>
+        </button>
+        <br>
+        <button onclick="window.location.href='/docs'">
+            <span>交互式API文档</span>
+        </button>
+    </div>
+
+</div>
 </body>
 </html>
