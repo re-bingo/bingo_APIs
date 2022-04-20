@@ -45,7 +45,7 @@ button {
 .ad:hover {
     color: white;
     background-color: #42B983;
-    box-shadow: #42B98380 0 5.5pt 0;
+    box-shadow: rgba(66, 185, 131, 0.3) 0 5.5pt 0;
 }
 
 button span:before, button span:after {
