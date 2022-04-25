@@ -45,6 +45,7 @@ class NewExperiment(models.NewExperiment):
 
     def __init__(self, **kwargs):
         params = {
+            "id": "0",
             "title": self.fake_title(),
             "description": self.fake_description(),
             "limit": self.fake_limit(),
