@@ -1,5 +1,5 @@
 from random import shuffle
-from diskcache import Deque
+from diskcache import Deque, Index
 
 
 class PersistentList:
@@ -46,7 +46,31 @@ class PersistentList:
         return len(self.list)
 
 
+class PersistentDict:
+    def __init__(self, cls):
+        self.memo = Index(directory=f"data/{cls.__name__}")
+        self.dict = dict(self.memo)
+
+    def clear(self):
+        self.memo.clear()
+        self.dict.clear()
+
+    def __setitem__(self, key, value):
+        self.memo[key] = value
+        self.dict[key] = value
+
+    def __getitem__(self, item):
+        return self.dict.__getitem__(item)
+
+    def transact(self):
+        return self.memo.transact()
+
+    def __len__(self):
+        return len(self.dict)
+
+
 from .experiments import app as experiment_router
 from .scales import app as scale_router
+from .wechatAPIs import app as user_router
 
-__all__ = {"experiment_router", "scale_router"}
+__all__ = {"experiment_router", "scale_router", "user_router"}

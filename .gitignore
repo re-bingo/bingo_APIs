@@ -3,3 +3,4 @@ __pycache__
 data/ExperimentItem
 data/FakeExperimentItem
 data/scales.pkl
+core/secret.py

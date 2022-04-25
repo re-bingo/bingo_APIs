@@ -1,3 +1,4 @@
+from time import time
 from uuid import uuid1
 from pydantic import BaseModel
 from autoprop import autoprop
@@ -13,24 +14,60 @@ class Sorting(IntEnum):
     duration_ascending = 6
 
 
-class NewExperimentItem(BaseModel):
+class NewExperiment(BaseModel):
     """实验信息"""
-    title: str  # 标题
-    description: str  # 简介
-    limit: int  # 人数上限
-    salary: str  # 薪酬
-    duration: str  # 时长
-    requirements: str  # 报名要求
-    tel: int  # 电话号码
-    tags: list[str] = []  # 标签
-    start_time: int = 0
-    end_time: int = 0
+    user: int
+    title: str = None
+    description: str = None
+    requirements: str = None
+    release_time: int = None
+    start_time: int = None
+    deadline: int = None
+    limit: int = None
+    salary: str = None
+    duration: str = None
+    tel: int = None
+    tags: list[str] = []
+    periods: list[str] = []
+
+    def to_item(self):
+        return ExperimentItem(
+            user=self.user,
+            time_stamp=int(time()),
+            title=self.title,
+            description=self.description,
+            requirements=self.requirements,
+            release_time=self.release_time,
+            salary=self.salary,
+            start_time=self.start_time,
+            deadline=self.deadline,
+            duration=self.duration,
+            tags=self.tags,
+            limit=self.limit,
+            tel=self.tel,
+            periods=self.periods
+        )
 
 
 def get_field(field_name: str):
-    return (lambda self: self.meta.get(field_name, None),
-            lambda self, value: self.meta.__setitem__(field_name, value),
-            lambda self: self.meta.pop(field_name))
+    def get_(self):
+        return self.meta.get(field_name, None)
+
+    def del_(self):
+        return self.meta.pop(field_name)
+
+    def set_(self, value):
+        self.meta.__setitem__(field_name, value)
+
+    get_.__name__ += field_name
+    del_.__name__ += field_name
+    set_.__name__ += field_name
+
+    get_.__qualname__ += field_name
+    del_.__qualname__ += field_name
+    set_.__qualname__ += field_name
+
+    return get_, set_, del_
 
 
 @autoprop
@@ -71,9 +108,9 @@ class Item:
     get_tags, set_tags, del_tags = get_field("tags")
     get_tel, set_tel, del_tel = get_field("tel")
 
-    def __init__(self, kwargs=None):
+    def __init__(self, **kwargs):
         self.id = uuid1()
-        self.meta = kwargs or {}
+        self.meta = {key: val for key, val in kwargs if val is not None}
 
 
 @autoprop

@@ -1,7 +1,7 @@
 from . import PersistentList
 from fastapi import APIRouter
-from .models import ExperimentItem as RealItem
-from .fakers import ExperimentItem as FakeItem
+from .models import NewExperiment as RealItem
+from .fakers import NewExperiment as FakeItem
 
 app = APIRouter()
 

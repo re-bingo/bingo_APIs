@@ -9,7 +9,7 @@ possible_titles = open(f"{path}/titles.txt", encoding="utf-8").read().strip().sp
 possible_tags = open(f"{path}/tags.txt", encoding="utf-8").read().strip().split()
 
 
-class ExperimentItem(models.ExperimentItem):
+class NewExperiment(models.NewExperiment):
     @staticmethod
     def fake_title():
         return choice(possible_titles)
@@ -30,9 +30,9 @@ class ExperimentItem(models.ExperimentItem):
     def fake_duration(min_=None, max_=None):
         return str(randrange(min_ or 5, max_ or 60))
 
-    @staticmethod
-    def fake_requirements(n=None):
-        return ExperimentItem.fake_description(n)
+    @classmethod
+    def fake_requirements(cls, n=None):
+        return cls.fake_description(n)
 
     @staticmethod
     def fake_tel():
@@ -53,11 +53,12 @@ class ExperimentItem(models.ExperimentItem):
             "requirements": self.fake_requirements(),
             "tel": self.fake_tel(),
             "tags": self.fake_tags(),
-            "start_time": (now := time()),
-            "end_time": now + 24 * 60 * 60
+            "time_stamp": (now := time()),
+            "start_time": now + 60 * 60,
+            "deadline": now + 24 * 60 * 60
         }
         params.update(kwargs)
         super().__init__(**params)
 
 
-ExperimentItem.__name__ = "Fake" + ExperimentItem.__name__
+NewExperiment.__name__ += "Faker"
