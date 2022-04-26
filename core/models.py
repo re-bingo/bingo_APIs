@@ -16,7 +16,7 @@ class Sorting(IntEnum):
 
 class NewExperiment(BaseModel):
     """实验信息"""
-    user: int
+    user: str
     title: str = None
     description: str = None
     requirements: str = None

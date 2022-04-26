@@ -71,6 +71,6 @@ class PersistentDict:
 
 from .experiments import app as experiment_router
 from .scales import app as scale_router
-from .wechatAPIs import app as user_router
+from .users import app as user_router
 
 __all__ = {"experiment_router", "scale_router", "user_router"}

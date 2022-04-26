@@ -16,7 +16,7 @@ async def new_fake_experiment_item(item: FakeItem):
     add a fake ExperimentItem to the fake database
     - the unfilled parameters will be default(fake) values
     """
-    return fake_items.append(item)
+    return fake_items.append(item.to_item())
 
 
 @app.delete("/fake", tags=["faking"])
@@ -44,7 +44,7 @@ async def get_random_fake_items(n: int):
 
 @app.post("/new")
 async def new_experiment_item(item: RealItem):
-    return real_items.append(item)
+    return real_items.append(item.to_item())
 
 
 @app.delete("/")

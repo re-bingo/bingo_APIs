@@ -1,4 +1,4 @@
-from core.wechatAPIs import code2session, WeChatUser
+from core.users import code2session, WeChatUser
 
 code = "003Y2Fkl20Lx394ivSnl22dqFi1Y2FkI"
 

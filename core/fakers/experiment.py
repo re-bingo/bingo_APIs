@@ -43,9 +43,13 @@ class NewExperiment(models.NewExperiment):
         shuffle(possible_tags)
         return possible_tags[:n or randrange(2, 7)]
 
+    @staticmethod
+    def fake_user():
+        return faker.pystr(15)
+
     def __init__(self, **kwargs):
         params = {
-            "user": "0",
+            "user": self.fake_user(),
             "title": self.fake_title(),
             "description": self.fake_description(),
             "limit": self.fake_limit(),

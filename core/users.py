@@ -68,3 +68,13 @@ app = APIRouter()
 @app.get("/id")
 def get_id_from_code(code):
     return User(WeChatUser(code)).id
+
+
+@app.get("/openid")
+def get_openid_from_code(code):
+    return WeChatUser(code).openid
+
+
+@app.get("/unionid")
+def get_unionid_from_code(code):
+    return WeChatUser(code).unionid
