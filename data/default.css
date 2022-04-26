@@ -1,15 +1,20 @@
 @font-face {
     font-family: regular;
-    src: url("/fonts/HarmonyOS_Sans_SC_Regular.ttf");
+    src: url("/fonts/regular") format("truetype");
 }
 
 @font-face {
     font-family: bold;
-    src: url("/fonts/HarmonyOS_Sans_SC_Bold.ttf");
+    src: url("/fonts/bold") format("truetype");
+}
+
+@font-face {
+    font-family: screen;
+    src: url("/fonts/serif") format("truetype");
 }
 
 h2 {
-    font-family: bold, sans-serif;
+    font-family: screen, sans-serif;
     font-weight: normal;
 }
 
@@ -42,6 +47,7 @@ div img {
 }
 
 button {
+    font-family: bold, sans-serif;
     letter-spacing: 1.25pt;
     color: rgb(196, 196, 196);
     background-color: #FFFFFF00;

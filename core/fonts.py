@@ -12,3 +12,8 @@ async def get_regular_font():
 @app.get("/bold")
 async def get_bold_font():
     return FileResponse("./data/fonts/HarmonyOS_Sans_SC_Bold.ttf")
+
+
+@app.get("/serif")
+async def get_serif_font():
+    return FileResponse("./data/fonts/FZPingXYSK.TTF")
