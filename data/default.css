@@ -1,5 +1,21 @@
+@font-face {
+    font-family: regular;
+    src: url("/fonts/HarmonyOS_Sans_SC_Regular.ttf");
+}
+
+@font-face {
+    font-family: bold;
+    src: url("/fonts/HarmonyOS_Sans_SC_Bold.ttf");
+}
+
+h2 {
+    font-family: bold, sans-serif;
+    font-weight: normal;
+}
+
 body {
-    font-family: sans-serif;
+    font-family: regular, sans-serif;
+    font-weight: normal;
     text-align: center;
     horiz-align: center;
     letter-spacing: 0.4pt;
@@ -96,7 +112,6 @@ div > div > code {
 }
 
 div > div {
-    font-family: sans-serif;
     font-size: 0.9em;
     font-weight: normal;
     padding: 0.15em;

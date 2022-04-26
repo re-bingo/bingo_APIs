@@ -57,24 +57,47 @@ class User:
         return user
 
     def __init__(self, wechat_user: WeChatUser, **kwargs):
-        self.id = wechat_user.id
         self.meta = kwargs
+        self.id = wechat_user.id
+        self.openid = wechat_user.openid
+        self.unionid = wechat_user.unionid
 
 
 User.users = PersistentDict(User)
 app = APIRouter()
 
 
-@app.get("/id")
-def get_id_from_code(code):
+@app.get("/code2id")
+def get_id_from_code(code: str):
     return User(WeChatUser(code)).id
 
 
-@app.get("/openid")
-def get_openid_from_code(code):
+@app.get("/code2openid")
+def get_openid_from_code(code: str):
     return WeChatUser(code).openid
 
 
-@app.get("/unionid")
-def get_unionid_from_code(code):
+@app.get("/code2unionid")
+def get_unionid_from_code(code: str):
     return WeChatUser(code).unionid
+
+
+@app.get("/id2openid")
+def get_openid_from_id(id: str):
+    return User.users[id].openid
+
+
+@app.get("/id2unionid")
+def get_unionid_from_id(id: str):
+    return User.users[id].unionid
+
+
+@app.put("/register/{id}")
+def update_user_information(id: str, data: dict):
+    User.users[id].meta.update(data)
+
+
+@app.delete("/")
+def massacre():
+    """# 该操作会立即删除所有用户！"""
+    User.users.clear()

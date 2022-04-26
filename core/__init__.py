@@ -55,6 +55,9 @@ class PersistentDict:
         self.memo.clear()
         self.dict.clear()
 
+    def add(self, value):
+        self[value.id] = value
+
     def __setitem__(self, key, value):
         self.memo[key] = value
         self.dict[key] = value
@@ -72,5 +75,6 @@ class PersistentDict:
 from .experiments import app as experiment_router
 from .scales import app as scale_router
 from .users import app as user_router
+from .fonts import app as font_router
 
-__all__ = {"experiment_router", "scale_router", "user_router"}
+__all__ = ["experiment_router", "scale_router", "user_router", "font_router"]
