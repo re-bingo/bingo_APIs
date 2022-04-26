@@ -92,9 +92,19 @@ def get_unionid_from_id(id: str):
     return User.users[id].unionid
 
 
+@app.get("/meta")
+def get_user_meta(id: str):
+    return User.users[id].meta
+
+
 @app.put("/register/{id}")
 def update_user_information(id: str, data: dict):
     User.users[id].meta.update(data)
+
+
+@app.get("/all")
+def get_all_users():
+    return User.users.dict.keys()
 
 
 @app.delete("/")
