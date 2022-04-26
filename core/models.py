@@ -110,7 +110,7 @@ class Item:
 
     def __init__(self, **kwargs):
         self.id = uuid1()
-        self.meta = {key: val for key, val in kwargs if val is not None}
+        self.meta = {key: val for key, val in kwargs.items() if val is not None}
 
 
 @autoprop
