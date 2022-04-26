@@ -1,8 +1,9 @@
+from . import PersistentDict, get_field
 from functools import cached_property
 from uuid import uuid5, NAMESPACE_DNS
 from cachetools.func import ttl_cache
+from autoprop import autoprop
 from fastapi import APIRouter
-from . import PersistentDict
 from .secret import *
 import requests
 
@@ -43,7 +44,11 @@ class WeChatUser:
     def id(self):
         return uuid5(NAMESPACE_DNS, self.openid)
 
+    def to_user(self):
+        return User(self)
 
+
+@autoprop
 class User:
     users: PersistentDict
 
@@ -62,52 +67,61 @@ class User:
         self.openid = wechat_user.openid
         self.unionid = wechat_user.unionid
 
+    get_name, set_name, del_name = get_field("name")
+    get_sex, set_sex, del_sex = get_field("sex")
+    get_tel, set_tel, del_tel = get_field("tel")
+    get_university, set_university, del_university = get_field("university")
+    get_number, set_number, del_number = get_field("number")
+
+    def check(self):
+        return self.name and self.sex and self.tel and self.university and self.number
+
 
 User.users = PersistentDict(User)
 app = APIRouter()
 
 
 @app.get("/code2id")
-def get_id_from_code(code: str):
-    return User(WeChatUser(code)).id
+async def get_id_from_code(code: str):
+    return WeChatUser(code).id
 
 
 @app.get("/code2openid")
-def get_openid_from_code(code: str):
+async def get_openid_from_code(code: str):
     return WeChatUser(code).openid
 
 
 @app.get("/code2unionid")
-def get_unionid_from_code(code: str):
+async def get_unionid_from_code(code: str):
     return WeChatUser(code).unionid
 
 
 @app.get("/id2openid")
-def get_openid_from_id(id: str):
+async def get_openid_from_id(id: str):
     return User.users[id].openid
 
 
 @app.get("/id2unionid")
-def get_unionid_from_id(id: str):
+async def get_unionid_from_id(id: str):
     return User.users[id].unionid
 
 
 @app.get("/meta")
-def get_user_meta(id: str):
+async def get_user_information(id: str):
     return User.users[id].meta
 
 
 @app.put("/register/{id}")
-def update_user_information(id: str, data: dict):
+async def update_user_information(id: str, data: dict):
     User.users[id].meta.update(data)
 
 
 @app.get("/all")
-def get_all_users():
-    return User.users.dict.keys()
+async def get_all_users():
+    return list(User.users.dict.keys())
 
 
 @app.delete("/")
-def massacre():
+async def massacre():
     """# 该操作会立即删除所有用户！"""
     User.users.clear()

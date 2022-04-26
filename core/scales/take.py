@@ -14,20 +14,20 @@ flattened = {title: "\n".join("\n".join(div) for div in content.values())
 
 
 @app.get("", response_model=list[str])
-def get_titles():
+async def get_titles():
     """get all the titles on the OBHRM wiki"""
     return titles
 
 
 @app.get("/random/{n}", response_model=list[str])
-def get_random(n: int) -> list[str]:
+async def get_random(n: int) -> list[str]:
     """randomly get ``n`` titles without caching"""
     shuffle(titles)
     return titles[:n]
 
 
 @app.get("/query/{text}", response_model=list[str])
-def query_by_title(text: str, n: int = 3) -> list[str]:
+async def query_by_title(text: str, n: int = 3) -> list[str]:
     """fuzzy matching using title"""
     return [title for title, score, index in extract(text, titles, limit=n)]
 
@@ -42,7 +42,7 @@ def search_by_content(text: str, n: int = 3) -> list[str]:
 
 
 @app.get("/{title}", response_model=dict[str, list[str]])
-def get_scale_content(title: str) -> dict[str, list[str]]:
+async def get_scale_content(title: str) -> dict[str, list[str]]:
     """get the content of given title (best match)"""
     key, score, index = extractOne(title, titles)
     return scales[key]

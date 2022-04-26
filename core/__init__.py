@@ -48,8 +48,8 @@ class PersistentList:
 
 class PersistentDict:
     def __init__(self, cls):
-        self.memo = Index(directory=f"data/{cls.__name__}")
-        self.dict = dict(self.memo)
+        self.memo = Index(f"data/{cls.__name__}")
+        self.dict = dict(self.memo.items())
 
     def clear(self):
         self.memo.clear()
@@ -70,6 +70,27 @@ class PersistentDict:
 
     def __len__(self):
         return len(self.dict)
+
+
+def get_field(field_name: str):
+    def get_(self):
+        return self.meta.get(field_name, None)
+
+    def del_(self):
+        return self.meta.pop(field_name)
+
+    def set_(self, value):
+        self.meta.__setitem__(field_name, value)
+
+    get_.__name__ += field_name
+    del_.__name__ += field_name
+    set_.__name__ += field_name
+
+    get_.__qualname__ += field_name
+    del_.__qualname__ += field_name
+    set_.__qualname__ += field_name
+
+    return get_, set_, del_
 
 
 from .experiments import app as experiment_router

@@ -1,8 +1,9 @@
-from time import time
-from uuid import uuid1
 from pydantic import BaseModel
 from autoprop import autoprop
 from enum import IntEnum
+from . import get_field
+from uuid import uuid1
+from time import time
 
 
 class Sorting(IntEnum):
@@ -47,27 +48,6 @@ class NewExperiment(BaseModel):
             tel=self.tel,
             periods=self.periods
         )
-
-
-def get_field(field_name: str):
-    def get_(self):
-        return self.meta.get(field_name, None)
-
-    def del_(self):
-        return self.meta.pop(field_name)
-
-    def set_(self, value):
-        self.meta.__setitem__(field_name, value)
-
-    get_.__name__ += field_name
-    del_.__name__ += field_name
-    set_.__name__ += field_name
-
-    get_.__qualname__ += field_name
-    del_.__qualname__ += field_name
-    set_.__qualname__ += field_name
-
-    return get_, set_, del_
 
 
 @autoprop
