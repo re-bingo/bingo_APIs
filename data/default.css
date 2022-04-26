@@ -1,25 +1,35 @@
 @font-face {
-    font-family: regular;
+    font-family: regular-sans;
     src: url("/fonts/regular") format("truetype");
 }
 
 @font-face {
-    font-family: bold;
+    font-family: bold-sans;
     src: url("/fonts/bold") format("truetype");
 }
 
 @font-face {
-    font-family: screen;
+    font-family: screen-serif;
     src: url("/fonts/serif") format("truetype");
 }
 
+@font-face {
+    font-family: art;
+    src: url("/fonts/art") format("truetype");
+}
+
 h2 {
-    font-family: screen, sans-serif;
+    font-family: bold-sans, sans-serif;
     font-weight: normal;
 }
 
+h5 {
+    font-family: Consolas, monospace;
+    color: #42B983;
+}
+
 body {
-    font-family: regular, sans-serif;
+    font-family: regular-sans, sans-serif;
     font-weight: normal;
     text-align: center;
     horiz-align: center;
@@ -35,11 +45,26 @@ body {
     transform: translate(-50%, -50%);
 }
 
+#background {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-family: art, sans-serif;
+    font-size: 30em;
+    color: gray;
+    opacity: 5%;
+}
+
+#title {
+    font-family: bold-sans, sans-serif;
+}
+
 div {
+    font-family: screen-serif, serif;
     position: relative;
     color: #5760a2;
     font-size: 1em;
-    padding: 0.3em;
 }
 
 div img {
@@ -47,7 +72,7 @@ div img {
 }
 
 button {
-    font-family: bold, sans-serif;
+    font-family: regular-sans, sans-serif;
     letter-spacing: 1.25pt;
     color: rgb(196, 196, 196);
     background-color: #FFFFFF00;
@@ -109,12 +134,13 @@ a:link, a:visited, a:hover, a:active {
 code {
     letter-spacing: 0;
     color: black;
-    font-family: "JetBrains Mono", Consolas, monospace;
+    font-family: "JetBrains Mono", Consolas, regular-sans, monospace;
 }
 
-div > div > code {
+div code {
+    font-size: 0.9em;
+    padding: 0.15em;
     color: #42B983;
-    font-weight: bolder;
 }
 
 div > div {
@@ -122,3 +148,4 @@ div > div {
     font-weight: normal;
     padding: 0.15em;
 }
+
