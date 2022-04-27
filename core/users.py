@@ -1,3 +1,4 @@
+from fastapi.responses import ORJSONResponse
 from . import PersistentDict, get_field
 from functools import cached_property
 from uuid import uuid5, NAMESPACE_DNS
@@ -81,32 +82,32 @@ User.users = PersistentDict(User)
 app = APIRouter()
 
 
-@app.get("/code2id")
+@app.get("/code2id", response_class=ORJSONResponse)
 async def get_id_from_code(code: str):
     return WeChatUser(code).id
 
 
-@app.get("/code2openid")
+@app.get("/code2openid", response_class=ORJSONResponse)
 async def get_openid_from_code(code: str):
     return WeChatUser(code).openid
 
 
-@app.get("/code2unionid")
+@app.get("/code2unionid", response_class=ORJSONResponse)
 async def get_unionid_from_code(code: str):
     return WeChatUser(code).unionid
 
 
-@app.get("/id2openid")
+@app.get("/id2openid", response_class=ORJSONResponse)
 async def get_openid_from_id(id: str):
     return User.users[id].openid
 
 
-@app.get("/id2unionid")
+@app.get("/id2unionid", response_class=ORJSONResponse)
 async def get_unionid_from_id(id: str):
     return User.users[id].unionid
 
 
-@app.get("/meta")
+@app.get("/meta", response_class=ORJSONResponse)
 async def get_user_information(id: str):
     return User.users[id].meta
 
@@ -116,7 +117,7 @@ async def update_user_information(id: str, data: dict):
     User.users[id].meta.update(data)
 
 
-@app.get("/all")
+@app.get("/all", response_class=ORJSONResponse)
 async def get_all_users():
     return list(User.users.dict.keys())
 
