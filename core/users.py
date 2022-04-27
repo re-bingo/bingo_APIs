@@ -44,7 +44,7 @@ class WeChatUser:
 
     @cached_property
     def id(self):
-        return uuid5(NAMESPACE_DNS, self.openid)
+        return str(uuid5(NAMESPACE_DNS, self.openid))
 
     def to_user(self):
         return User(self)
