@@ -93,17 +93,17 @@ app = APIRouter()
 
 @app.get("/code2id", response_class=ORJSONResponse)
 async def get_id_from_code(code: str):
-    return WeChatUser(code).id
+    return User(WeChatUser(code)).id
 
 
 @app.get("/code2openid", response_class=ORJSONResponse)
 async def get_openid_from_code(code: str):
-    return WeChatUser(code).openid
+    return User(WeChatUser(code)).openid
 
 
 @app.get("/code2unionid", response_class=ORJSONResponse)
 async def get_unionid_from_code(code: str):
-    return WeChatUser(code).unionid
+    return User(WeChatUser(code)).unionid
 
 
 @app.get("/id2openid", response_class=ORJSONResponse)
