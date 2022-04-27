@@ -24,15 +24,15 @@ class WeChatUser:
 
     @property
     def openid(self) -> str:
-        return self.meta["openid"]
+        return self.meta.get("openid", None)
 
     @property
-    def session_id(self) -> str:
-        return self.meta["session_key"]
+    def session_key(self) -> str:
+        return self.meta.get("session_key", None)
 
     @property
     def unionid(self) -> str:
-        return self.meta["unionid"]
+        return self.meta.get("unionid", None)
 
     @property
     def errcode(self) -> int:
@@ -60,6 +60,7 @@ class User:
             user.meta.update(kwargs)
         except KeyError:
             user = object.__new__(cls)
+            assert wechat_user.id, wechat_user.meta
             cls.users[wechat_user.id] = user
         return user
 
