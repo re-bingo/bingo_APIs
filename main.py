@@ -21,7 +21,7 @@ def home_page():
 
 
 @app.get("/{filepath:path}")
-def get_static_resources(filepath: str):
+def get_static_assets(filepath: str):
     path = f"./data/{filepath}"
     return FileResponse(path) if isfile(path) else \
         PlainTextResponse(f"{path!r} does not exists!", 404)

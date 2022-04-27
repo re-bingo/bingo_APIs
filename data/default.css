@@ -51,10 +51,10 @@ body {
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
-    font-family: art, sans-serif;
-    font-size: 30em;
+    font-family: mono-italic, monospace;
+    font-size: 20em;
     color: gray;
-    opacity: 5%;
+    opacity: 10%;
 }
 
 #title {
