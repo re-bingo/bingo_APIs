@@ -15,6 +15,11 @@ class Sorting(IntEnum):
     duration_ascending = 6
 
 
+class Period(BaseModel):
+    start_slot: str
+    end_slot: str
+
+
 class NewExperiment(BaseModel):
     """实验信息"""
     user: str
@@ -29,7 +34,7 @@ class NewExperiment(BaseModel):
     duration: str = None
     tel: int = None
     tags: list[str] = []
-    periods: list[str] = []
+    periods: list[Period] = []
 
     def to_item(self):
         return ExperimentItem(

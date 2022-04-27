@@ -1,35 +1,36 @@
 @font-face {
-    font-family: regular-sans;
-    src: url("/fonts/regular") format("truetype");
+    font-family: mono-regular;
+    src: url("/fonts/JetBrainsMono-Regular.woff2");
 }
 
 @font-face {
-    font-family: bold-sans;
-    src: url("/fonts/bold") format("truetype");
+    font-family: mono-italic;
+    src: url("/fonts/JetBrainsMono-Italic.woff2");
 }
 
 @font-face {
-    font-family: screen-serif;
-    src: url("/fonts/serif") format("truetype");
+    font-family: mono-medium;
+    src: url("/fonts/JetBrainsMono-Medium.woff2");
 }
 
 @font-face {
-    font-family: art;
-    src: url("/fonts/art") format("truetype");
+    font-family: mono-medium-italic;
+    src: url("/fonts/JetBrainsMono-MediumItalic.woff2");
 }
+
 
 h2 {
-    font-family: bold-sans, sans-serif;
+    font-family: sans-serif;
     font-weight: normal;
 }
 
 h5 {
-    font-family: Consolas, monospace;
+    font-family: mono-medium, Consolas, monospace;
     color: #42B983;
 }
 
 body {
-    font-family: regular-sans, sans-serif;
+    font-family: sans-serif;
     font-weight: normal;
     text-align: center;
     horiz-align: center;
@@ -57,11 +58,11 @@ body {
 }
 
 #title {
-    font-family: bold-sans, sans-serif;
+    font-family: mono-medium, sans-serif;
 }
 
 div {
-    font-family: screen-serif, serif;
+    font-family: mono-medium, serif;
     position: relative;
     color: #5760a2;
     font-size: 1em;
@@ -72,7 +73,7 @@ div img {
 }
 
 button {
-    font-family: regular-sans, sans-serif;
+    font-family: mono-medium, sans-serif;
     letter-spacing: 1.25pt;
     color: rgb(196, 196, 196);
     background-color: #FFFFFF00;
@@ -134,7 +135,7 @@ a:link, a:visited, a:hover, a:active {
 code {
     letter-spacing: 0;
     color: black;
-    font-family: "JetBrains Mono", Consolas, regular-sans, monospace;
+    font-family: "JetBrains Mono", mono-medium, Consolas, monospace;
 }
 
 div code {

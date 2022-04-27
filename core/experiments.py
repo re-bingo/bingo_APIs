@@ -11,7 +11,7 @@ fake_items = PersistentList(FakeItem)
 fake_items.extend(real_items)
 
 
-@app.post("/new/fake", tags=["faking"], response_class=ORJSONResponse)
+@app.post("/new/fake", response_class=ORJSONResponse)
 async def new_fake_experiment_item(item: FakeItem):
     """
     add a fake ExperimentItem to the fake database
@@ -20,13 +20,13 @@ async def new_fake_experiment_item(item: FakeItem):
     return fake_items.append(item.to_item())
 
 
-@app.delete("/fake", tags=["faking"], response_class=ORJSONResponse)
+@app.delete("/fake", response_class=ORJSONResponse)
 async def clear_all_fake_experiments():
     """clear the fake database"""
     return fake_items.clear()
 
 
-@app.get("/fake/random/{n}", tags=["faking"], response_class=ORJSONResponse)
+@app.get("/fake/random/{n}", response_class=ORJSONResponse)
 async def get_random_fake_items(n: int):
     """
     get many fake experimentItems as you want
