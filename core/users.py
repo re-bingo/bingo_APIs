@@ -128,7 +128,14 @@ async def update_user_information(id: str, data: Meta):
 
 @app.get("/all", response_class=ORJSONResponse)
 async def get_all_users():
-    return list(User.users.dict.keys())
+    return list(User.users.dict)
+
+
+@app.get("/debug/show_all", tags=["debug"])
+async def show_all_users():
+    print(f"{list(User.users.dict) = }")
+    print(f"{list(User.users.memo.keys()) = }")
+    return list(User.users.dict.items())
 
 
 @app.delete("/")
