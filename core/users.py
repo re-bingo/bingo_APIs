@@ -3,6 +3,7 @@ from . import PersistentDict, get_field
 from functools import cached_property
 from uuid import uuid5, NAMESPACE_DNS
 from cachetools.func import ttl_cache
+from pydantic import BaseModel
 from autoprop import autoprop
 from fastapi import APIRouter
 from .secret import *
@@ -78,6 +79,14 @@ class User:
         return self.name and self.sex and self.tel and self.university and self.number
 
 
+class Meta(BaseModel):
+    name: str = None
+    sex: str = None
+    tel: str = None
+    university: str = None
+    number: str = None
+
+
 User.users = PersistentDict(User)
 app = APIRouter()
 
@@ -107,14 +116,14 @@ async def get_unionid_from_id(id: str):
     return User.users[id].unionid
 
 
-@app.get("/meta", response_class=ORJSONResponse)
+@app.get("/meta", response_model=Meta, response_class=ORJSONResponse)
 async def get_user_information(id: str):
     return User.users[id].meta
 
 
 @app.put("/register/{id}")
-async def update_user_information(id: str, data: dict):
-    User.users[id].meta.update(data)
+async def update_user_information(id: str, data: Meta):
+    User.users[id].meta.update({i: j for i, j in data if j is not None})
 
 
 @app.get("/all", response_class=ORJSONResponse)
