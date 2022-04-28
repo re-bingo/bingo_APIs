@@ -25,3 +25,11 @@ def get_static_assets(filepath: str):
     path = f"./data/{filepath}"
     return FileResponse(path) if isfile(path) else \
         PlainTextResponse(f"{path!r} does not exists!", 404)
+
+
+@app.get("/refresh")
+def git_pull():
+    from fastapi.responses import RedirectResponse
+    from os import system
+    system("git pull")
+    return RedirectResponse("/")

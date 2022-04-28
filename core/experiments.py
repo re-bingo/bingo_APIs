@@ -17,7 +17,8 @@ async def new_fake_experiment_item(item: FakeItem):
     add a fake ExperimentItem to the fake database
     - the unfilled parameters will be default(fake) values
     """
-    return fake_items.append(item.to_item())
+    fake_items.append(item.to_item())
+    return item.to_item().id
 
 
 @app.delete("/fake", response_class=ORJSONResponse)
@@ -45,7 +46,8 @@ async def get_random_fake_items(n: int):
 
 @app.post("/new", response_class=ORJSONResponse)
 async def new_experiment_item(item: RealItem):
-    return real_items.append(item.to_item())
+    real_items.append(item.to_item())
+    return item.to_item().id
 
 
 @app.delete("/", response_class=ORJSONResponse)

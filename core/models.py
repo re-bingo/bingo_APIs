@@ -94,7 +94,7 @@ class Item:
     get_tel, set_tel, del_tel = get_field("tel")
 
     def __init__(self, **kwargs):
-        self.id = uuid1()
+        self.id = str(uuid1())
         self.meta = {key: val for key, val in kwargs.items() if val is not None}
 
 
