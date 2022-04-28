@@ -29,7 +29,7 @@ class debugger:
     critical = logger.critical
 
     @staticmethod
-    @app.get("/refresh")
+    @app.get("/refresh", tags=["debug"])
     def git_pull():
         from fastapi.responses import RedirectResponse
         from os import system
