@@ -47,14 +47,15 @@ class WeChatUser:
         return str(uuid5(NAMESPACE_DNS, self.openid))
 
     def to_user(self):
-        return User(self)
+        return User.new(self)
 
 
 @autoprop
 class User:
     users: PersistentDict
 
-    def __new__(cls, wechat_user: WeChatUser, **kwargs):
+    @classmethod
+    def new(cls, wechat_user: WeChatUser, **kwargs) -> "User":
         try:
             user: User = cls.users[wechat_user.id]
             user.meta.update(kwargs)
@@ -63,6 +64,10 @@ class User:
             assert wechat_user.id, wechat_user.meta
             cls.users[wechat_user.id] = user
         return user
+
+    @classmethod
+    def get(cls, code: str) -> "User":
+        return cls.new(WeChatUser(code))
 
     def __init__(self, wechat_user: WeChatUser, **kwargs):
         self.meta = kwargs
@@ -94,17 +99,17 @@ app = APIRouter()
 
 @app.get("/code2id", response_class=ORJSONResponse)
 async def get_id_from_code(code: str):
-    return User(WeChatUser(code)).id
+    return User.get(code).id
 
 
 @app.get("/code2openid", response_class=ORJSONResponse)
 async def get_openid_from_code(code: str):
-    return User(WeChatUser(code)).openid
+    return User.get(code).openid
 
 
 @app.get("/code2unionid", response_class=ORJSONResponse)
 async def get_unionid_from_code(code: str):
-    return User(WeChatUser(code)).unionid
+    return User.get(code).unionid
 
 
 @app.get("/id2openid", response_class=ORJSONResponse)
