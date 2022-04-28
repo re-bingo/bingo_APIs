@@ -60,7 +60,7 @@ class User:
             user: User = cls.users[wechat_user.id]
             user.meta.update(kwargs)
         except KeyError:
-            user = object.__new__(cls)
+            user = User(wechat_user, **kwargs)
             assert wechat_user.id, wechat_user.meta
             cls.users[wechat_user.id] = user
         return user
