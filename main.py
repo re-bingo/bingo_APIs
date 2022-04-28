@@ -20,12 +20,29 @@ def home_page():
     return FileResponse("./data/home.html")
 
 
-@app.get("/refresh")
-def git_pull():
-    from fastapi.responses import RedirectResponse
-    from os import system
-    system("git pull")
-    return RedirectResponse("/")
+class debugger:
+    from loguru import logger
+    debug = logger.debug
+    info = logger.info
+    warning = logger.warning
+    error = logger.error
+    critical = logger.critical
+
+    @staticmethod
+    @app.get("/refresh")
+    def git_pull():
+        from fastapi.responses import RedirectResponse
+        from os import system
+        debugger.info(system("git pull"))
+        return RedirectResponse("/")
+
+    @staticmethod
+    @app.get("/debug/users", tags=["debug"])
+    async def inspect_all_users():
+        from core.users import User
+        debugger.debug(f"{list(User.users.dict) = }")
+        debugger.debug(f"{list(User.users.memo.keys()) = }")
+        return list(User.users.dict.items())
 
 
 @app.get("/{filepath:path}")

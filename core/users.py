@@ -141,13 +141,3 @@ async def get_all_users():
 async def massacre():
     """# 该操作会立即删除所有用户！"""
     User.users.clear()
-
-
-class Debugger:
-    @staticmethod
-    @app.get("/debug/show_all", tags=["debug"])
-    async def show_all_users():
-        from loguru import logger
-        logger.debug(f"{list(User.users.dict) = }")
-        logger.debug(f"{list(User.users.memo.keys()) = }")
-        return list(User.users.dict.items())
