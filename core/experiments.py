@@ -35,10 +35,9 @@ async def get_random_fake_items(n: int):
     in case you require more than you posted,
     I promise you get something random rather than errors
     """
-    fake_items.shuffle()
     for _ in range(n - len(fake_items)):
         await new_fake_experiment_item(FakeItem())
-    return fake_items[:n]
+    return fake_items.sample(n)
 
 
 #####################################################################
@@ -57,5 +56,4 @@ async def clear_all_experiments():
 
 @app.get("/random/{n}", response_class=ORJSONResponse)
 async def get_random_items(n: int):
-    real_items.shuffle()
-    return real_items[:n]
+    return real_items.sample(n)

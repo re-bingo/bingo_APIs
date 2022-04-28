@@ -1,4 +1,4 @@
-from random import shuffle
+from random import sample
 from diskcache import Deque, Index
 
 
@@ -27,8 +27,8 @@ class PersistentList:
         self.memo.clear()
         self.list.clear()
 
-    def shuffle(self):
-        shuffle(self.list)
+    def sample(self, k):
+        return sample(self.list, k)
 
     def __getitem__(self, item):
         return self.list.__getitem__(item)
@@ -49,7 +49,7 @@ class PersistentList:
 class PersistentDict:
     def __init__(self, cls):
         self.memo = Index(f"data/{cls.__name__}")
-        self.dict = dict(self.memo.items())
+        self.dict = dict(self.memo)
 
     def clear(self):
         self.memo.clear()
@@ -70,6 +70,9 @@ class PersistentDict:
 
     def __len__(self):
         return len(self.dict)
+
+    def sample(self, k):
+        return sample(self.dict.keys(), k)
 
 
 def get_field(field_name: str):
