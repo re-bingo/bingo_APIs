@@ -1,4 +1,4 @@
-from random import shuffle
+from random import sample
 from pickle import load
 from fastapi.responses import ORJSONResponse
 from fastapi import APIRouter
@@ -23,8 +23,7 @@ async def get_titles():
 @app.get("/random/{n}", response_model=list[str], response_class=ORJSONResponse)
 async def get_random(n: int) -> list[str]:
     """randomly get ``n`` titles without caching"""
-    shuffle(titles)
-    return titles[:n]
+    return sample(titles, n)
 
 
 @app.get("/query/{text}", response_model=list[str], response_class=ORJSONResponse)

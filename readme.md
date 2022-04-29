@@ -1,6 +1,10 @@
 # API and backend of Bingo!
 
-> 欢迎来到 bingo API 的文档,
+> 欢迎来到 bingo API 的文档
+>
+> 因为openssl的缘故没法支持python3.10,
+> 因此代码可能并不是最简
+>
 > 以下是更新计划
 
 ---

@@ -1,7 +1,7 @@
 from . import PersistentList
 from fastapi import APIRouter
 from fastapi.responses import ORJSONResponse
-from .models import NewExperiment as RealItem
+from .models import NewExperiment as RealItem, Sorting
 from .fakers import NewExperiment as FakeItem
 
 app = APIRouter()
@@ -9,6 +9,29 @@ app = APIRouter()
 real_items = PersistentList(RealItem)
 fake_items = PersistentList(FakeItem)
 fake_items.extend(real_items)
+
+
+@app.get("/fake/sorted/{n}", response_class=ORJSONResponse)
+def get_sorted_items(n: int, key: Sorting):
+    try:
+        if key is Sorting.cost_ascending:
+            return sorted(fake_items.list, key=lambda item: item.salary)[:n]
+        elif key is Sorting.cost_descending:
+            return sorted(fake_items.list, key=lambda item: item.salary, reverse=True)[:n]
+        elif key is Sorting.duration_ascending:
+            return sorted(fake_items.list, key=lambda item: item.duration)[:n]
+        elif key is Sorting.duration_descending:
+            return sorted(fake_items.list, key=lambda item: item.duration, reverse=True)[:n]
+        elif key is Sorting.smart_ascending:
+            return sorted(fake_items.list, key=lambda item: item.limit, reverse=True)[:n]
+        elif key is Sorting.smart_descending:
+            return sorted(fake_items.list, key=lambda item: item.limit, reverse=False)[:n]
+    except RuntimeError as err:
+        from fastapi import HTTPException
+        raise HTTPException(422, err)
+
+
+#####################################################################
 
 
 @app.post("/new/fake", response_class=ORJSONResponse)
