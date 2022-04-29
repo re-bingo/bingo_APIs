@@ -3,6 +3,7 @@ from fastapi import APIRouter
 from fastapi.responses import ORJSONResponse
 from .models import NewExperiment as RealItem, Sorting
 from .fakers import NewExperiment as FakeItem
+from rapidfuzz.process import extract
 
 app = APIRouter()
 
@@ -12,7 +13,7 @@ fake_items.extend(real_items)
 
 
 @app.get("/fake/sorted/{n}", response_class=ORJSONResponse)
-def get_sorted_items(n: int, key: Sorting):
+async def get_sorted_fake_items(n: int, key: Sorting):
     try:
         if key is Sorting.cost_ascending:
             return sorted(fake_items.list, key=lambda item: item.salary)[:n]
@@ -29,6 +30,16 @@ def get_sorted_items(n: int, key: Sorting):
     except RuntimeError as err:
         from fastapi import HTTPException
         raise HTTPException(422, err)
+
+
+def get_title_map():
+    return {item: item.title for item in fake_items.list}
+
+
+@app.get("/query/{text}", response_class=ORJSONResponse)
+async def query_fake_items_by_title(text: str, n: int = 3):
+    """fuzzy matching using title"""
+    return extract(text, get_title_map(), limit=n)
 
 
 #####################################################################
