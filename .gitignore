@@ -1,7 +1,8 @@
 .idea
 .vscode
 __pycache__
-data/ExperimentItem
-data/FakeExperimentItem
+data/NewExperiment
+data/NewExperimentFaker
+data/User
 data/scales.pkl
 core/secret.py
