@@ -1,9 +1,9 @@
 from pydantic import BaseModel
-from autoprop import autoprop
+from typing import Union
 from enum import IntEnum
-from . import get_field
 from uuid import uuid1
 from time import time
+from . import field
 
 
 class Sorting(IntEnum):
@@ -15,15 +15,50 @@ class Sorting(IntEnum):
     duration_ascending = 6
 
 
+class status(IntEnum):
+    before_apply = 0
+    reviewing = 1
+    failed = 2
+    approved = 3
+
+
 class Period(BaseModel):
     start_slot: str
     end_slot: str
 
 
+class UserList(BaseModel):
+    users: list[str] = []
+    sexes: str = None
+    universities: list[str] = []
+
+
+class BlackList(BaseModel):
+    pass
+
+
+class WhiteList(BaseModel):
+    pass
+
+
+class Selector(BaseModel):
+    selectors: list[Union[BlackList, WhiteList]]
+    next: "Selector"
+
+    def __bool__(self):
+        return bool(self.selectors)
+
+    def visible_to(self, user_id):
+        _ = self, user_id
+        return NotImplemented
+
+
 class NewExperiment(BaseModel):
     """实验信息"""
-    user: str
     title: str = None
+    logic: Selector = None
+    author: str
+    visible: bool = False
     description: str = None
     requirements: str = None
     release_time: int = None
@@ -38,9 +73,11 @@ class NewExperiment(BaseModel):
 
     def to_item(self):
         return ExperimentItem(
-            user=self.user,
-            time_stamp=int(time()),
+            author=self.author,
+            logic=self.logic,
+            timestamp=int(time()),
             title=self.title,
+            visible=self.visible,
             description=self.description,
             requirements=self.requirements,
             release_time=self.release_time,
@@ -55,54 +92,45 @@ class NewExperiment(BaseModel):
         )
 
 
-@autoprop
 class Item:
-    """一切项目实例的基类
-
-    - ``user``         用户ID
-    - ``title``        标题，查询用
-    - ``time_stamp``   时间戳，创建时间
-    - ``description``  项目介绍
-    - ``requirements`` 对参与者的需求
-    - ``release_time`` 发布时间
-    - ``start_time``   报名开始时间
-    - ``deadline``     报名截止时间
-    - ``duration``     实验/问卷的预计持续时间
-    - ``salary``       报酬、报酬的形式
-    - ``limit``        人数/人次数上限
-    - ``tags``         标签的集合（的初始值）
-    - ``tel``          联系电话（可选）
-
-    - ``body``         问卷体（问卷特有的属性）
-    - ``periods``      时间段（实验特有的属性）（可选）
-    """
-
-    get_user, set_user, del_user = get_field("user")
-    get_title, set_title, del_title = get_field("title")
-    get_time_stamp, set_time_stamp, del_time_stamp = get_field("time_stamp")
-    get_description, set_description, del_description = get_field("description")
-    get_requirements, set_requirements, del_requirements = get_field("requirements")
-
-    get_release_time, set_release_time, del_release_time = get_field("release_time")
-    get_start_time, set_start_time, del_start_time = get_field("start_time")
-    get_deadline, set_deadline, del_deadline = get_field("deadline")
-    get_duration, set_duration, del_duration = get_field("duration")
-
-    get_salary, set_salary, del_salary = get_field("salary")
-    get_limit, set_limit, del_limit = get_field("limit")
-    get_tags, set_tags, del_tags = get_field("tags")
-    get_tel, set_tel, del_tel = get_field("tel")
+    title = field("title", "标题")
+    logic = field("logic", "权限")
+    author = field("author", "用户ID")
+    status = field("status", "审核状态")
+    visible = field("visible", "对外可见")
+    timestamp = field("timestamp", "创建时间")
+    description = field("description", "描述")
+    requirements = field("requirements", "要求")
+    release_time = field("release_time", "发布时间")
+    start_time = field("start_time", "报名起始时间")
+    deadline = field("deadline", "报名结束时间")
+    duration = field("duration", "持续时间")
+    salary = field("salary", "报酬方式")
+    limit = field("limit", "人数上限")
+    tags = field("tags", "标签集")
+    tel = field("tel", "电话")
 
     def __init__(self, **kwargs):
         self.id = str(uuid1())
         self.meta = {key: val for key, val in kwargs.items() if val is not None}
 
 
-@autoprop
 class QuestionnaireItem(Item):
-    get_body, set_body, del_body = get_field("body")
+    body = field("body", "问卷体")
+
+    @property
+    def complete(self):
+        return self.visible and all((
+            self.title, self.description, self.salary, self.body,
+            self.limit, self.duration, self.deadline
+        ))
 
 
-@autoprop
 class ExperimentItem(Item):
-    get_periods, set_periods, del_periods = get_field("periods")
+    periods = field("periods", "时间段")
+
+    @property
+    def complete(self):
+        return self.visible and all((
+            self.title, self.description, self.salary,
+        ))

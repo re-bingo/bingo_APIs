@@ -1,5 +1,5 @@
 from fastapi.responses import ORJSONResponse
-from . import PersistentDict, get_field
+from . import PersistentDict, field
 from functools import cached_property
 from uuid import uuid5, NAMESPACE_DNS
 from cachetools.func import ttl_cache
@@ -75,11 +75,11 @@ class User:
         self.openid = wechat_user.openid
         self.unionid = wechat_user.unionid
 
-    get_name, set_name, del_name = get_field("name")
-    get_sex, set_sex, del_sex = get_field("sex")
-    get_tel, set_tel, del_tel = get_field("tel")
-    get_university, set_university, del_university = get_field("university")
-    get_number, set_number, del_number = get_field("number")
+    name = field("name", "姓名")
+    sex = field("sex", "性别")
+    tel = field("tel", "电话号码")
+    university = field("university", "学校")
+    number = field("number", "学号")
 
     def check(self):
         return self.name and self.sex and self.tel and self.university and self.number

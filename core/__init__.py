@@ -75,25 +75,11 @@ class PersistentDict:
         return sample(self.dict.keys(), k)
 
 
-def get_field(field_name: str):
-    def get_(self):
-        return self.meta.get(field_name, None)
-
-    def del_(self):
-        return self.meta.pop(field_name)
-
-    def set_(self, value):
-        self.meta.__setitem__(field_name, value)
-
-    get_.__name__ += field_name
-    del_.__name__ += field_name
-    set_.__name__ += field_name
-
-    get_.__qualname__ += field_name
-    del_.__qualname__ += field_name
-    set_.__qualname__ += field_name
-
-    return get_, set_, del_
+def field(field_name: str, doc=None):
+    return property(lambda self: self.meta.get(field_name, None),
+                    lambda self, value: self.meta.__setitem__(field_name, value),
+                    lambda self: self.meta.pop(field_name),
+                    doc or field_name)
 
 
 from .experiments import app as experiment_router
