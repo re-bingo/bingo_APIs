@@ -32,14 +32,23 @@ async def get_sorted_fake_items(n: int, key: Sorting):
         raise HTTPException(422, err)
 
 
-def get_title_map():
+async def get_title_map():
     return {item: item.title for item in fake_items.list}
 
 
 @app.get("/query/{text}", response_class=ORJSONResponse)
 async def query_fake_items_by_title(text: str, n: int = 3):
     """fuzzy matching using title"""
-    return extract(text, get_title_map(), limit=n)
+    return [i[2] for i in extract(text, await get_title_map(), limit=n)]
+
+
+async def get_description_map():
+    return {item: item.description for item in fake_items.list}
+
+
+@app.get("/search/{text}", response_class=ORJSONResponse)
+async def search_fake_items_by_description(text: str, n: int = 3):
+    return [i[2] for i in extract(text, await get_description_map(), limit=n)]
 
 
 #####################################################################
