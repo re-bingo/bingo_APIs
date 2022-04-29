@@ -58,7 +58,7 @@ class NewExperiment(BaseModel):
     title: str = None
     logic: Selector = None
     author: str
-    visible: bool = False
+    visible: bool = True
     description: str = None
     requirements: str = None
     release_time: int = None

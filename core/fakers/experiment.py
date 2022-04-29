@@ -1,7 +1,7 @@
 from . import faker
 from .. import models
 from time import time
-from random import choice, randrange, shuffle
+from random import choice, randrange, sample
 
 path = __package__.replace(".", "/")
 
@@ -40,16 +40,15 @@ class NewExperiment(models.NewExperiment):
 
     @staticmethod
     def fake_tags(n=None):
-        shuffle(possible_tags)
-        return possible_tags[:n or randrange(2, 7)]
+        return sample(possible_tags, n or randrange(2, 7))
 
     @staticmethod
-    def fake_user():
-        return faker.pystr(15)
+    def fake_author():
+        return f"fake-author{faker.pystr(15)}"
 
     def __init__(self, **kwargs):
         params = {
-            "user": self.fake_user(),
+            "author": self.fake_author(),
             "title": self.fake_title(),
             "description": self.fake_description(),
             "limit": self.fake_limit(),
@@ -58,7 +57,7 @@ class NewExperiment(models.NewExperiment):
             "requirements": self.fake_requirements(),
             "tel": self.fake_tel(),
             "tags": self.fake_tags(),
-            "time_stamp": (now := time()),
+            "timestamp": (now := time()),
             "start_time": now + 60 * 60,
             "deadline": now + 24 * 60 * 60
         }
