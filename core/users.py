@@ -1,8 +1,9 @@
 from fastapi.responses import ORJSONResponse
-from . import PersistentDict, field
 from functools import cached_property
 from uuid import uuid5, NAMESPACE_DNS
 from cachetools.func import ttl_cache
+from . import PersistentDict, field
+from fastapi import HTTPException
 from pydantic import BaseModel
 from autoprop import autoprop
 from fastapi import APIRouter
@@ -97,33 +98,43 @@ User.users = PersistentDict(User)
 app = APIRouter()
 
 
-@app.get("/code2id", response_class=ORJSONResponse)
+@app.get("/code2id")
 async def get_id_from_code(code: str):
     return User.get(code).id
 
 
-@app.get("/code2openid", response_class=ORJSONResponse)
+@app.get("/code2openid")
 async def get_openid_from_code(code: str):
     return User.get(code).openid
 
 
-@app.get("/code2unionid", response_class=ORJSONResponse)
+@app.get("/code2unionid")
 async def get_unionid_from_code(code: str):
     return User.get(code).unionid
 
 
-@app.get("/id2openid", response_class=ORJSONResponse)
+@app.post("/check")
+async def check_completed_registered(id: str) -> bool:
+    return User.users[id].check()
+
+
+@app.get("/id2openid")
 async def get_openid_from_id(id: str):
     return User.users[id].openid
 
 
-@app.get("/id2unionid", response_class=ORJSONResponse)
+@app.get("/id2unionid")
 async def get_unionid_from_id(id: str):
     return User.users[id].unionid
 
 
-@app.get("/meta", response_model=Meta, response_class=ORJSONResponse)
-async def get_user_information(id: str):
+@app.post("/code2meta", response_model=Meta, response_class=ORJSONResponse)
+async def get_user_info_from_code(code: str):
+    return User.get(code).meta
+
+
+@app.post("/id2meta", response_model=Meta, response_class=ORJSONResponse)
+async def get_user_info_from_id(id: str):
     return User.users[id].meta
 
 

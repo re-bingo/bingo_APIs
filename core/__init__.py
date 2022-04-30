@@ -1,4 +1,5 @@
 from random import sample
+from fastapi import HTTPException
 from diskcache import Deque, Index
 
 
@@ -31,7 +32,7 @@ class PersistentList:
         return sample(self.list, k)
 
     def __getitem__(self, item):
-        return self.list.__getitem__(item)
+        return self.list[item]
 
     def peek(self):
         return self.memo.peek()
@@ -63,7 +64,10 @@ class PersistentDict:
         self.dict[key] = value
 
     def __getitem__(self, item):
-        return self.dict.__getitem__(item)
+        try:
+            return self.dict.__getitem__(item)
+        except KeyError:
+            raise HTTPException(400, f"{item} not in {self.memo.directory}")
 
     def transact(self):
         return self.memo.transact()
