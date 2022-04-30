@@ -83,7 +83,7 @@ class User:
     number = field("number", "学号")
 
     def check(self):
-        return self.name and self.sex and self.tel and self.university and self.number
+        return all((self.name, self.sex, self.tel, self.university, self.number))
 
 
 class Meta(BaseModel):
