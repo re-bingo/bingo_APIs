@@ -1,6 +1,8 @@
 from fastapi.responses import FileResponse, RedirectResponse
+from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.gzip import GZipMiddleware
-from fastapi import FastAPI, HTTPException
+from starlette.templating import Jinja2Templates
+from markdown2 import markdown
 from functools import cache
 from os.path import isfile
 from core import *
@@ -15,9 +17,17 @@ app.include_router(font_router, prefix="/fonts", tags=["fonts"])
 
 
 @app.get("/", name="home_page")
-@cache
-def home_page():
-    return FileResponse("./data/home.html")
+# @cache
+def home_page(request: Request):
+    from datetime import date
+    return Jinja2Templates("./data").TemplateResponse(
+        "home.html",
+        {
+            "request": request,
+            "readme": markdown(open("./readme.md", encoding="utf-8").read()),
+            "date": f"—— today is {date.today()} ——"
+        }
+    )
 
 
 class debugger:

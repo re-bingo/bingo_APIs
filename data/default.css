@@ -18,6 +18,11 @@
     src: url("/fonts/JetBrainsMono-MediumItalic.woff2");
 }
 
+@font-face {
+    font-family: mono-bold;
+    src: url("/fonts/JetBrainsMono-Bold.woff2");
+}
+
 
 h2 {
     font-family: sans-serif;
@@ -25,7 +30,8 @@ h2 {
 }
 
 h5 {
-    font-family: mono-medium, Consolas, monospace;
+    font-family: mono-bold, Consolas, monospace;
+    font-weight: normal;
     color: #42B983;
 }
 
@@ -151,3 +157,8 @@ div > div {
     padding: 0.15em;
 }
 
+#readme {
+    margin-left: 30%;
+    margin-right: 30%;
+    text-align: left;
+}

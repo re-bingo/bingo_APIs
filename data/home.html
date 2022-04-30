@@ -11,14 +11,20 @@
     <img src="logo_rounded.png" alt="logo">
     <h2> ~ Bingo! 您的随身科研助理 ~ </h2>
 
-    <h5>2022.4.27</h5>
+    <h5> {{ date }} </h5>
 
     <div id="title">
-        更 新 日 志 <br>
-        · &nbsp; L O G &nbsp; · <br><br>
+        项 目 简 介 <br>
+        · &nbsp; R E A D M E &nbsp; · <br><br>
     </div>
 
-    <div>下次更新将在这里直接填充<code>readme.md</code>中的内容</div>
+    <div id="readme">
+        {% autoescape false %}
+        {{ readme }}
+        {% endautoescape %}
+    </div>
+
+    <br>
 
     <div>
         <button class="doc" onclick="window.location.href='/redoc'">
@@ -28,7 +34,7 @@
             <span>交互式API文档</span>
         </button>
 
-        <br><br><br><br>
+        <br><br>
 
         <code>
             This welcome page is totally handwritten in pure HTML and CSS. <br>
