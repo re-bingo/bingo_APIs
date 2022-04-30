@@ -1,10 +1,10 @@
 from fastapi.responses import ORJSONResponse
+from fastapi import APIRouter, HTTPException
 from functools import cached_property
 from uuid import uuid5, NAMESPACE_DNS
 from cachetools.func import ttl_cache
 from . import PersistentDict, field
 from pydantic import BaseModel
-from fastapi import APIRouter
 from .secret import *
 import requests
 
@@ -57,7 +57,7 @@ class User:
         try:
             user: User = cls.users[wechat_user.id]
             user.meta.update(kwargs)
-        except KeyError:
+        except HTTPException:
             user = User(wechat_user, **kwargs)
             assert wechat_user.id, wechat_user.meta
             cls.users[wechat_user.id] = user
