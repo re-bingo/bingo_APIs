@@ -125,12 +125,12 @@ async def get_unionid_from_id(id: str):
     return User.users[id].unionid
 
 
-@app.post("/code2meta", response_model=Meta, response_class=ORJSONResponse)
+@app.get("/code2meta", response_model=Meta, response_class=ORJSONResponse)
 async def get_user_info_from_code(code: str):
     return User.get(code).meta
 
 
-@app.post("/id2meta", response_model=Meta, response_class=ORJSONResponse)
+@app.get("/id2meta", response_model=Meta, response_class=ORJSONResponse)
 async def get_user_info_from_id(id: str):
     return User.users[id].meta
 

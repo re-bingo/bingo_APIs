@@ -50,4 +50,5 @@ def get_static_assets(filepath: str):
     if isfile(path):
         return FileResponse(path)
     else:
-        raise HTTPException(404, f"{path!r} does not exists!")
+        raise HTTPException(404, f"fall back to static assets function and "
+                                 f"{path!r} does not exists!")
