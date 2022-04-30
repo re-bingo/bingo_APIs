@@ -12,43 +12,39 @@ fake_items = PersistentList(FakeItem)
 fake_items.extend(real_items)
 
 
-@app.get("/fake/sorted/{n}", response_class=ORJSONResponse)
-async def get_sorted_fake_items(n: int, key: Sorting):
-    try:
-        if key is Sorting.cost_ascending:
-            return sorted(fake_items.list, key=lambda item: item.salary)[:n]
-        elif key is Sorting.cost_descending:
-            return sorted(fake_items.list, key=lambda item: item.salary, reverse=True)[:n]
-        elif key is Sorting.duration_ascending:
-            return sorted(fake_items.list, key=lambda item: item.duration)[:n]
-        elif key is Sorting.duration_descending:
-            return sorted(fake_items.list, key=lambda item: item.duration, reverse=True)[:n]
-        elif key is Sorting.smart_ascending:
-            return sorted(fake_items.list, key=lambda item: item.limit, reverse=True)[:n]
-        elif key is Sorting.smart_descending:
-            return sorted(fake_items.list, key=lambda item: item.limit, reverse=False)[:n]
-    except RuntimeError as err:
-        from fastapi import HTTPException
-        raise HTTPException(422, err)
-
-
 async def get_title_map():
     return {item: item.title for item in fake_items.list}
 
 
-@app.get("/query/{text}", response_class=ORJSONResponse)
-async def query_fake_items_by_title(text: str, n: int = 3):
+async def sort(it, key: Sorting):
+    if key is Sorting.cost_ascending:
+        return sorted(it, key=lambda item: item.salary)
+    elif key is Sorting.cost_descending:
+        return sorted(it, key=lambda item: item.salary, reverse=True)
+    elif key is Sorting.duration_ascending:
+        return sorted(it, key=lambda item: item.duration)
+    elif key is Sorting.duration_descending:
+        return sorted(it, key=lambda item: item.duration, reverse=True)
+    elif key is Sorting.smart_ascending:
+        return list(it)[::-1]
+    elif key is Sorting.smart_descending:
+        return list(it)
+
+
+@app.get("/query/fake/{text}", response_class=ORJSONResponse)
+async def query_fake_items_by_title(text: str, n: int = 3, key: Sorting = Sorting.smart_descending):
     """fuzzy matching using title"""
-    return [i[2] for i in extract(text, await get_title_map(), limit=n)]
+    return (await sort((i[2] for i in extract(text, await get_title_map(), limit=n)), key))[:n]
 
 
 async def get_description_map():
     return {item: item.description for item in fake_items.list}
 
 
-@app.get("/search/{text}", response_class=ORJSONResponse)
-async def search_fake_items_by_description(text: str, n: int = 3):
-    return [i[2] for i in extract(text, await get_description_map(), limit=n)]
+@app.get("/search/fake/{text}", response_class=ORJSONResponse)
+async def search_fake_items_by_description(text: str, n: int = 3, key: Sorting = Sorting.smart_descending):
+    """fuzzy matching using description"""
+    return (await sort((i[2] for i in extract(text, await get_description_map(), limit=n)), key))[:n]
 
 
 #####################################################################

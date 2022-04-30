@@ -1,7 +1,7 @@
-from fastapi.responses import FileResponse, PlainTextResponse
+from fastapi.responses import FileResponse, RedirectResponse
 from fastapi.middleware.gzip import GZipMiddleware
+from fastapi import FastAPI, HTTPException
 from functools import cache
-from fastapi import FastAPI
 from os.path import isfile
 from core import *
 
@@ -31,7 +31,6 @@ class debugger:
     @staticmethod
     @app.get("/refresh", tags=["debug"])
     def git_pull():
-        from fastapi.responses import RedirectResponse
         from os import system
         debugger.info(system("git pull"))
         return RedirectResponse("/")
@@ -48,5 +47,7 @@ class debugger:
 @app.get("/{filepath:path}")
 def get_static_assets(filepath: str):
     path = f"./data/{filepath}"
-    return FileResponse(path) if isfile(path) else \
-        PlainTextResponse(f"{path!r} does not exists!", 404)
+    if isfile(path):
+        return FileResponse(path)
+    else:
+        raise HTTPException(404, f"{path!r} does not exists!")
