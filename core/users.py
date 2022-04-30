@@ -3,9 +3,7 @@ from functools import cached_property
 from uuid import uuid5, NAMESPACE_DNS
 from cachetools.func import ttl_cache
 from . import PersistentDict, field
-from fastapi import HTTPException
 from pydantic import BaseModel
-from autoprop import autoprop
 from fastapi import APIRouter
 from .secret import *
 import requests
@@ -51,7 +49,6 @@ class WeChatUser:
         return User.new(self)
 
 
-@autoprop
 class User:
     users: PersistentDict
 
@@ -113,7 +110,7 @@ async def get_unionid_from_code(code: str):
     return User.get(code).unionid
 
 
-@app.post("/check")
+@app.get("/check")
 async def check_completed_registered(id: str) -> bool:
     return User.users[id].check()
 
