@@ -3,8 +3,8 @@ from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.gzip import GZipMiddleware
 from starlette.templating import Jinja2Templates
 from markdown2 import markdown
-from functools import cache
 from os.path import isfile
+from datetime import date
 from core import *
 
 app = FastAPI(title="bingo APIs", description="python sever powered by FastAPI")
@@ -17,9 +17,7 @@ app.include_router(font_router, prefix="/fonts", tags=["fonts"])
 
 
 @app.get("/", name="home_page")
-# @cache
-def home_page(request: Request):
-    from datetime import date
+async def home_page(request: Request):
     return Jinja2Templates("./data").TemplateResponse(
         "home.html",
         {
