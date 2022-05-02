@@ -1,10 +1,11 @@
+from fastapi.responses import ORJSONResponse, HTMLResponse, FileResponse
+from fastapi import APIRouter, Request
 from random import sample
 from pickle import load
-from fastapi.responses import ORJSONResponse
-from fastapi import APIRouter
-from cachetools.func import lfu_cache
 from rapidfuzz.process import extract, extractOne
 from rapidfuzz.fuzz import partial_ratio
+from cachetools.func import lfu_cache
+from starlette.templating import Jinja2Templates
 
 app = APIRouter()
 
@@ -46,3 +47,15 @@ async def get_scale_content(title: str) -> dict[str, list[str]]:
     """get the content of given title (best match)"""
     key, score, index = extractOne(title, titles)
     return scales[key]
+
+
+@app.get("/html/{title}", response_class=HTMLResponse)
+async def get_scale_content(request: Request, title: str):
+    return Jinja2Templates("./data").TemplateResponse(
+        "scale_templates.html",
+        {
+            "request": request,
+            "title": title,
+            "scale": scales[title]
+        }
+    )

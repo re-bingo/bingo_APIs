@@ -1,6 +1,10 @@
 # API and backend of Bingo!
 
-欢迎来到 bingo API 的文档
+## 新功能🥳🥳 [](/scales/html/量表标题)
+比如访问这个地址：[理念型心理契约量表](/scales/html/Ideological Psychological Contract Scale理念型心理契约量表)
+
+欢迎来到 **bingo API** 的文档😘
+
 **该`readme.md`在仓库页面和网站首页保持同步（通过`Jinja2`模板引擎）**
 
 > 服务器上不知道为什么`python3.10`的`ssl`模块会报错，所以只好兼容到3.9了
@@ -18,7 +22,7 @@
 
 - **时间有限**，排序和搜索的实现仍欠优化
 - 还没有连接**数据库**
-- 首页的`readme.md`并没有展示出所有`markdown`特性
+- 首页的`readme.md`并没有展示出所有`markdown`特性，css也没有针对**quote block**进行优化
 
 #### 娱乐更新
 

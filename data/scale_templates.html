@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <title>{{ title }}</title>
+    <style>
+
+        body {
+            padding: 5em;
+        }
+
+        h2 {
+            margin-left: 1em;
+            color: #5760a2;
+        }
+
+        div > p {
+            margin-left: 4em;
+        }
+
+        div {
+            text-align: left;
+        }
+
+    </style>
+</head>
+<body>
+
+<h1> {{ title }} </h1>
+
+<div>
+    {% for subtitle, paragraphs in scale.items() %}
+        <h2> {{ subtitle }} </h2>
+        {% for paragraph in paragraphs %}
+            {% if paragraph.startswith("http") %}
+                <p><a href="{{ paragraph }}"> {{ paragraph }}</a></p>
+            {% else %}
+                {% for line in paragraph.split("\n") %}
+                    <p> {{ line }} </p>
+                {% endfor %}
+            {% endif %}
+        {% endfor %}
+    {% endfor %}
+</div>
+
+</body>
+</html>
