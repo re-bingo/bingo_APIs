@@ -22,6 +22,21 @@
             text-align: left;
         }
 
+        button {
+            font-family: sans-serif;
+            color: #5760a2;
+            background-color: transparent;
+            border: 1pt solid #5760a2;
+            border-radius: 5pt;
+            padding: 0.5em;
+            transition: all 72ms;
+        }
+
+        button:hover {
+            color: white;
+            background-color: #5760a2;
+        }
+
     </style>
 </head>
 <body>
@@ -33,7 +48,9 @@
         <h2> {{ subtitle }} </h2>
         {% for paragraph in paragraphs %}
             {% if paragraph.startswith("http") %}
-                <p><a href="{{ paragraph }}"> {{ paragraph }}</a></p>
+                <p>
+                    <button onclick="window.location.href='{{ paragraph }}'">立即下载</button>
+                </p>
             {% else %}
                 {% for line in paragraph.split("\n") %}
                     <p> {{ line }} </p>
