@@ -1,28 +1,27 @@
-# API and backend of Bingo!
+# 欢迎来到 **bingo API** 的文档😘
 
-## 新功能🥳🥳 [](/scales/html/量表标题)
-比如访问这个地址：[理念型心理契约量表](/scales/html/Ideological Psychological Contract Scale理念型心理契约量表)
+## 🥳🥳🥳🥳新功能🥳🥳🥳🥳
 
-欢迎来到 **bingo API** 的文档😘
+试试访问这个链接：[任务相互依赖性量表](/scales/html/任务相互依赖性量表)
 
 **该`readme.md`在仓库页面和网站首页保持同步（通过`Jinja2`模板引擎）**
 
 > 服务器上不知道为什么`python3.10`的`ssl`模块会报错，所以只好兼容到3.9了
-> 
+>
 >**以下为近期的更新**
 
 ---
 
-#### 破坏性地，有
+#### 可以注意一下的
 
-- `Item`中时间戳域由`time_stamp`改名为`timestamp`了
-- `User`下所有`API`都遭遇了大改
+- 获取全部量表的接口由`/scales`变成`/scales/`了
 
 #### 近期未完成
 
 - **时间有限**，排序和搜索的实现仍欠优化
 - 还没有连接**数据库**
 - 首页的`readme.md`并没有展示出所有`markdown`特性，css也没有针对**quote block**进行优化
+- 还没有给搜索量表的页面写一个HTML
 
 #### 娱乐更新
 
