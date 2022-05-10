@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title> searching scales </title>
+    <style>
+
+        @font-face {
+            font-family: mono-bold;
+            src: url("/fonts/JetBrainsMono-Bold.woff2");
+        }
+
+        div {
+            font-family: sans-serif;
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+        }
+
+        h1 {
+            letter-spacing: 0.1em;
+            color: #646464;
+            opacity: 20%;
+        }
+
+        h2 {
+            font-family: mono-bold, sans-serif;
+            color: #5760a2;
+            letter-spacing: 0.5em;
+            font-weight: normal;
+        }
+
+        #to_search, #go {
+            outline: none;
+            margin: 5pt 10pt;
+            background-color: transparent;
+            border-radius: 3pt;
+            font-size: 1.5em;
+            transition: all 200ms;
+            padding: 10pt;
+        }
+
+        #go {
+            border: 1.5pt solid #5760a2;
+            color: #5760a2;
+        }
+
+        #go:hover {
+            color: white;
+            background-color: #5760a2;
+        }
+
+        #to_search {
+            border: 1.5pt solid #646464;
+            color: #646464;
+            opacity: 20%;
+        }
+
+        #to_search:hover {
+            border-color: #5760a2;
+            color: black;
+            opacity: 100%;
+        }
+
+    </style>
+</head>
+<body>
+
+<div>
+    <h1> 按标题查找你需要的量表 </h1>
+    <h2> QUERY BY TITLE </h2>
+
+    <br>
+
+    <label for="to_search"></label>
+    <input type="text" id="to_search">
+    <button onclick="search()" id="go">GO</button>
+</div>
+
+<script>
+    function search() {
+        let text = document.getElementById("to_search").value
+        window.location.href = `/scales/html/${text}`
+    }
+
+    document.getElementById("to_search").addEventListener("keydown", event => {
+        if (event.key === "Enter") return search()
+    })
+</script>
+
+</body>
+</html>

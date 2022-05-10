@@ -79,6 +79,13 @@ div img {
     height: 7em;
 }
 
+hr {
+    margin-top: 3em;
+    margin-bottom: 3em;
+    border: 0.5pt solid #646464;
+    opacity: 20%;
+}
+
 button {
     font-family: mono-medium, sans-serif;
     letter-spacing: 1.25pt;
