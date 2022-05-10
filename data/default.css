@@ -146,7 +146,7 @@ button span:before, button span:after {
 
 a:link, a:visited, a:hover, a:active {
     color: #5760a2;
-    margin: 1em;
+    /*margin: 1em;*/
 }
 
 code {
@@ -168,7 +168,7 @@ div > div {
 }
 
 #readme {
-    margin-left: 15%;
-    margin-right: 15%;
+    margin-left: 25%;
+    margin-right: 25%;
     text-align: left;
 }
