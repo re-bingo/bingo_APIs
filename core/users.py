@@ -145,6 +145,15 @@ async def get_all_users():
     return list(User.users.dict)
 
 
+@app.get("/cancellation/{id}", response_class=ORJSONResponse)
+async def cancel_user_by_id(id: str):
+    try:
+        return User.users.pop(id).meta
+    except KeyError as ex:
+        pass
+        return HTTPException(400, f"{ex}")
+
+
 @app.delete("/")
 async def massacre():
     """# 该操作会立即删除所有用户！"""

@@ -52,6 +52,10 @@ class PersistentDict:
         self.memo = Index(f"data/{cls.__name__}")
         self.dict = dict(self.memo)
 
+    def pop(self, key):
+        self.memo.pop(key)
+        return self.dict.pop(key)
+
     def clear(self):
         self.memo.clear()
         self.dict.clear()
