@@ -1,4 +1,4 @@
-# 欢迎来到 **bingo API** 的文档😘
+# 欢迎来到 **bingo API** 的主页😘
 
 ###### 查看我们的接口文档：[https://sehnsucht.top/](https://sehnsucht.top/)
 
@@ -9,7 +9,7 @@
 而有的链接是相对链接，因此在仓库页面访问不了，只能在我们接口文档跳转。
 
 > **2022年5月16日**
->
+> 
 > 由于对接数据库、人员调整等因素，我们决定用Java重构Bingo的后端
 >
 > 在所有接口均被Java实现后，这个仓库将迎来寿终正寝
@@ -28,6 +28,8 @@
 
 #### 可以注意一下的
 
+- 克隆下本仓库必须补齐`secret.py`才能用
+- 最好每次都访问这个页面都刷新一遍[`css`](/default.css)
 - 新增：[根据`ID`删除用户](/docs#/users/cancel_user_by_id_users_cancellation__id__get)，即允许**注销用户**
 - [获取全部量表的接口](/docs#/scales/get_titles_scales__get)由`/scales`变成`/scales/`了（为了一些一致性）
 - 搜索页面为`/scales/html`而不是`/scales/html/`，后者不能正常访问

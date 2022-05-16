@@ -4,5 +4,4 @@ __pycache__
 data/NewExperiment
 data/NewExperimentFaker
 data/User
-data/scales.pkl
 core/secret.py
