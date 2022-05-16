@@ -156,7 +156,6 @@ code {
 }
 
 div code {
-    font-size: 0.9em;
     padding: 0.15em;
     color: #42B983;
 }
@@ -171,4 +170,22 @@ div > div {
     margin-left: 25%;
     margin-right: 25%;
     text-align: left;
+}
+
+blockquote {
+    background: #64646409;
+    font-family: sans-serif;
+    margin: 0;
+    padding: 1em;
+    border-radius: 5.5pt;
+    border-left: #5760a2 solid 5pt;
+}
+
+blockquote > p {
+    margin: 0 5pt;
+}
+
+#nb {
+    width: 60%;
+    height: auto;
 }

@@ -4,4 +4,4 @@ import taichi as ti
 app = APIRouter()
 ti.init(ti.gpu)
 
-__all__ = {"ti", "app"}
+__all__ = ["ti", "app"]
