@@ -172,6 +172,11 @@ div > div {
     text-align: left;
 }
 
+#readme img {
+    width: 100%;
+    height: 100%;
+}
+
 blockquote {
     background: #64646409;
     font-family: sans-serif;
