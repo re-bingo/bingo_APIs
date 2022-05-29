@@ -190,7 +190,8 @@ blockquote > p {
     margin: 0 5pt;
 }
 
-#nb {
-    width: 60%;
-    height: auto;
+#cwj > svg {
+    scale: 125%;
+    margin-top: 2em;
+    margin-bottom: 4em;
 }
