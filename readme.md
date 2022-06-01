@@ -8,7 +8,7 @@
 
 而有的链接是相对链接，因此在仓库页面访问不了，只能在我们接口文档跳转。
 
-![cover](http://175.178.204.205:7777/static/bingo_webplus_ppt_cover.png)
+![cover](https://jihulab.com/CNSeniorious000/assets/-/raw/main/static/bingo_webplus_ppt_cover.png)
 
 > **2022年5月16日**
 > 
