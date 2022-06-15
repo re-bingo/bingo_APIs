@@ -8,12 +8,21 @@
 <body>
 <div id="background">BINGO</div>
 <div id="whole">
+    {% autoescape false %}
     <img src="logo_rounded.png" alt="logo">
     <h2> ~ Bingo! 您的随身科研助理 ~ </h2>
 
+    <a href="https://github.com/CNSeniorious000"> {{ badge }} </a>
+
     <h5> {{ date }} </h5>
 
-    <h1><a href="/scales/html"> 快来玩新功能：直接在html上搜索量表！ </a></h1>
+    <h2 style="text-underline-offset: 5pt; font-size: large">
+        <a href="https://github.com/hexWars">传说中的"蔡总"究竟为何方神圣👇</a>
+    </h2>
+    <div id="cwj"> {{ cwj }} </div>
+
+
+    <h2><b>new 🔈 <a href="/scales/html"> 量表快搜 </a></b></h2>
 
     <div id="title">
         项 目 简 介 <br>
@@ -41,7 +50,7 @@
         <code>
             This welcome page is totally handwritten in pure HTML and CSS. <br>
             But Muspi Merol can't afford his food by himself these days. <br>
-            Before going to sleep, he said: <i>"Become one of my sponsors if you want!"</i> 🥳 <br>
+            So, you can do him a favor by sending him some money in WeChat! 🥳 <br>
         </code>
 
         <br>
@@ -53,6 +62,7 @@
             <span>Gitee repo</span>
         </button>
     </div>
+    {% endautoescape %}
 </div>
 </body>
 </html>
