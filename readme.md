@@ -45,3 +45,4 @@
 
 - [x] **支持[直接html搜索量表](/scales/html)**
 - [ ] 可见的未来准备做几个debug用的页面，比如格式化展示`users`或者`items`
+
