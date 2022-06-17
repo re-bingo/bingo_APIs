@@ -4,7 +4,7 @@
 
 ---
 
-**该`readme.md`在[仓库页面](https://github.com/CNSeniorious000/bingo_APIs)和网站首页保持同步（通过[`Jinja2`模板引擎](http://doc.yonyoucloud.com/doc/jinja2-docs-cn/index.html)）**
+**该`readme.md`在[仓库页面](https://github.com/CNSeniorious000/bingo_APIs)和网站首页保持同步（通过[`Jinja2`模板引擎](https://doc.yonyoucloud.com/doc/jinja2-docs-cn/index.html)）**
 
 而有的链接是相对链接，因此在仓库页面访问不了，只能在我们接口文档跳转。
 
