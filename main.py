@@ -12,7 +12,8 @@ from requests import get
 from core import *
 
 app = FastAPI(title="bingo APIs", description="python sever powered by FastAPI")
-app.add_middleware(GZipMiddleware, minimum_size=1024)
+# app.add_middleware(GZipMiddleware, minimum_size=1024)
+app.add_middleware(BrotliMiddleware, minimum_size=1024)
 app.add_middleware(CORSMiddleware, allow_methods=["*"], allow_headers=["*"])
 
 app.include_router(user_router, prefix="/users", tags=["users"])
@@ -23,14 +24,6 @@ app.include_router(font_router, prefix="/fonts", tags=["fonts"])
 
 @ttl_cache(None, 60 * 60)
 def get_cwj_readme():
-    # from bs4 import BeautifulSoup
-    # r = get("https://github.com/hexWars/hexWars/blob/main/README.md")
-    # r = get("https://github.com/hexWars/hexWars/blob/main/README.md")
-    # soup = BeautifulSoup(r.text, "lxml")
-    # return soup.select_one("#readme > article").prettify()
-
-    # return markdown(get("https://raw.githubusercontent.com/hexWars/hexWars/main/README.md").text)
-
     return get("https://github-readme-stats.vercel.app/api?username=hexWars&show_icons=true&bg_color=00000000").text
 
 
