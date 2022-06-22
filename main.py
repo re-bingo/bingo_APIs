@@ -12,8 +12,7 @@ from requests import get
 from core import *
 
 app = FastAPI(title="bingo APIs", description="python sever powered by FastAPI")
-# app.add_middleware(GZipMiddleware, minimum_size=1024)
-app.add_middleware(BrotliMiddleware, minimum_size=1024)
+app.add_middleware(GZipMiddleware, minimum_size=1024)
 app.add_middleware(CORSMiddleware, allow_methods=["*"], allow_headers=["*"])
 
 app.include_router(user_router, prefix="/users", tags=["users"])

@@ -94,6 +94,5 @@ from .experiments import app as experiment_router
 from .scales import app as scale_router
 from .users import app as user_router
 from .fonts import app as font_router
-from .br import BrotliMiddleware
 
-__all__ = ["experiment_router", "scale_router", "user_router", "font_router", "BrotliMiddleware"]
+__all__ = ["experiment_router", "scale_router", "user_router", "font_router"]

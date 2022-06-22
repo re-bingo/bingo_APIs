@@ -79,6 +79,7 @@ class BrotliResponder:
             body = message.get("body", b"")
             more_body = message.get("more_body", False)
 
+            self.compressor.process(body)
             message["body"] = self.compressor.process(body) + (
                 self.compressor.flush() if more_body else self.compressor.finish()
             )
