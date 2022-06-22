@@ -1,8 +1,8 @@
 from fastapi.responses import FileResponse, RedirectResponse
 from fastapi import FastAPI, HTTPException, Request
-from fastapi.middleware.gzip import GZipMiddleware
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.templating import Jinja2Templates
+from brotli_asgi import BrotliMiddleware
 from cachetools.func import ttl_cache
 from markdown2 import markdown
 from functools import cache
@@ -12,7 +12,7 @@ from requests import get
 from core import *
 
 app = FastAPI(title="bingo APIs", description="python sever powered by FastAPI")
-app.add_middleware(GZipMiddleware, minimum_size=1024)
+app.add_middleware(BrotliMiddleware, quality=11, minimum_size=1024)
 app.add_middleware(CORSMiddleware, allow_methods=["*"], allow_headers=["*"])
 
 app.include_router(user_router, prefix="/users", tags=["users"])
