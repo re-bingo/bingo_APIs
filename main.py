@@ -8,7 +8,7 @@ from markdown2 import markdown
 from functools import cache
 from os.path import isfile
 from datetime import date
-from requests import get
+from httpx import get
 from core import *
 
 app = FastAPI(title="bingo APIs", description="python sever powered by FastAPI")

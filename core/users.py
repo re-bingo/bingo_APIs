@@ -6,12 +6,12 @@ from cachetools.func import ttl_cache
 from . import PersistentDict, field
 from pydantic import BaseModel
 from .secret import *
-import requests
+from httpx import get
 
 
 @ttl_cache(ttl=30)
 def code2session(code: str) -> dict:
-    return requests.get(
+    return get(
         "https://api.weixin.qq.com/sns/jscode2session?"
         f"appid={appId}&secret={appSecret}&js_code={code}&grant_type=authorization_code"
     ).json()
