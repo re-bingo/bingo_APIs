@@ -50,14 +50,10 @@ body {
 
 #whole {
     margin-top: 10%;
-    /*position: absolute;*/
-    /*top: 50%;*/
-    /*left: 50%;*/
-    /*transform: translate(-50%, -50%);*/
 }
 
 #background {
-    position: absolute;
+    position: fixed;
     top: 50%;
     left: 50%;
     transform: translate(-50%, -50%);
@@ -178,7 +174,7 @@ div > div {
 }
 
 blockquote {
-    background: #64646409;
+    background: #6464640C;
     font-family: sans-serif;
     margin: 0;
     padding: 1em;
