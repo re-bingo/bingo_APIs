@@ -1,6 +1,6 @@
 # 欢迎来到 **bingo API** 的主页😘
 
-###### 查看我们的接口文档：[https://sehnsucht.top/](http://175.178.204.205:8000/)
+###### 这个demo页面部署了该仓库：[https://bingo.muspimerol.site/](http://muspimerol.site:8000/)
 
 ---
 

@@ -2,6 +2,7 @@ from fastapi.responses import FileResponse, RedirectResponse
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.templating import Jinja2Templates
+from starlette.staticfiles import StaticFiles
 from brotli_asgi import BrotliMiddleware
 from cachetools.func import ttl_cache
 from markdown2 import markdown
@@ -22,8 +23,9 @@ app.include_router(font_router, prefix="/fonts", tags=["fonts"])
 
 
 @ttl_cache(None, 60 * 60)
-def get_cwj_readme():
-    return get("https://github-readme-stats.vercel.app/api?username=hexWars&show_icons=true&bg_color=00000000").text
+def get_status():
+    return get("https://github-readme-stats.vercel.app/api?"
+               "username=CNSeniorious000&show_icons=true&bg_color=00000000").text
 
 
 @cache
@@ -40,7 +42,7 @@ async def home_page(request: Request):
             "request": request,
             "readme": markdown(open("./readme.md", encoding="utf-8").read()),
             "date": f"—— today is {date.today()} ——",
-            "cwj": get_cwj_readme(),
+            "status": get_status(),
             "badge": get_badge()
         }
     )
@@ -70,11 +72,14 @@ class debugger:
         return list(User.users.dict.items())
 
 
-@app.get("/{filepath:path}")
-def get_static_assets(filepath: str):
-    path = f"./data/{filepath}"
-    if isfile(path):
-        return FileResponse(path)
-    else:
-        raise HTTPException(404, f"fall back to static assets function and "
-                                 f"{path!r} does not exists!")
+# @app.get("/{filepath:path}")
+# def get_static_assets(filepath: str):
+#     path = f"./data/{filepath}"
+#     if isfile(path):
+#         return FileResponse(path)
+#     else:
+#         raise HTTPException(404, f"fall back to static assets function and "
+#                                  f"{path!r} does not exists!")
+
+
+app.mount("", StaticFiles(directory="./data"))
