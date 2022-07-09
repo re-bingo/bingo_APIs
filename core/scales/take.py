@@ -5,7 +5,6 @@ from pickle import load
 from rapidfuzz.process import extract, extractOne
 from rapidfuzz.fuzz import partial_ratio
 from cachetools.func import lfu_cache
-from starlette.templating import Jinja2Templates
 
 app = APIRouter()
 
@@ -15,6 +14,7 @@ flattened = {title: "\n".join("\n".join(div) for div in content.values())
              for title, content in scales.items()}
 
 
+@app.get("", response_model=list[str], response_class=ORJSONResponse, include_in_schema=False)
 @app.get("/", response_model=list[str], response_class=ORJSONResponse)
 async def get_titles():
     """get all the titles on the OBHRM wiki"""
@@ -40,4 +40,3 @@ def search_by_content(text: str, n: int = 3) -> list[str]:
     return [title for content, score, title in extract(
         text, flattened, limit=n, scorer=partial_ratio
     )]
-
