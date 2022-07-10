@@ -1,6 +1,6 @@
 # 欢迎来到 **bingo API** 的主页😘
 
-###### 这个demo页面部署了该仓库：[https://bingo.muspimerol.site/](http://muspimerol.site:8000/)
+###### 这个demo页面部署了该仓库：[https://bingo.muspimerol.site/](https://muspimerol.site:8000/)
 
 ---
 
