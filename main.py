@@ -1,6 +1,6 @@
-from fastapi.responses import FileResponse, RedirectResponse
 from fastapi import FastAPI, HTTPException, Request
 from fastapi.middleware.cors import CORSMiddleware
+from starlette.responses import RedirectResponse
 from starlette.templating import Jinja2Templates
 from starlette.staticfiles import StaticFiles
 from brotli_asgi import BrotliMiddleware
