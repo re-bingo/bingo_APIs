@@ -14,7 +14,7 @@ flattened = {title: "\n".join("\n".join(div) for div in content.values())
              for title, content in scales.items()}
 
 
-@app.get("", response_model=list[str], response_class=ORJSONResponse, include_in_schema=False)
+@app.get("", response_model=list[str], response_class=ORJSONResponse, deprecated=True)
 @app.get("/", response_model=list[str], response_class=ORJSONResponse)
 async def get_titles():
     """get all the titles on the OBHRM wiki"""
