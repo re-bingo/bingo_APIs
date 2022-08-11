@@ -200,21 +200,22 @@ blockquote > p {
 
 #nav > a {
     text-decoration: none;
-    color: rgba(255, 255, 255, 0.5);
+    color: white;
     font-family: "HarmonyOS Sans", sans-serif;
     font-size: 1.2vw;
-    letter-spacing: 0.3vw;
+    letter-spacing: 0.5vmax;
+    font-weight: lighter;
     transition: all 200ms;
     animation: notification 1.2s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 #nav > a:hover {
-    color: white;
+    filter: drop-shadow(0 0 5px #FFFFFF44);
 }
 
 @keyframes nav {
     from {
-        top: -4vw;
+        top: -4.5vmax;
     }
     to {
         top: 0;
@@ -223,11 +224,9 @@ blockquote > p {
 
 @keyframes notification {
     from {
-        filter: blur(10pt);
-        color: white;
+        filter: blur(15pt);
     }
     to {
         filter: none;
-        color: rgba(255, 255, 255, 0.5);
     }
 }
