@@ -7,6 +7,7 @@
     <link rel="prefetch" as="document" href="/scales/html">
 </head>
 <body>
+<div id="nav"><a href="https://cdn.muspimerol.site/bingo"> 🤩 崭新官网上线啦 🤩 </a></div>
 <div id="background">BINGO</div>
 <div id="whole">
     {% autoescape false %}
@@ -66,4 +67,9 @@
     {% endautoescape %}
 </div>
 </body>
+<script>
+    const nav = document.getElementById("nav")
+    nav.classList.add("white")
+    setTimeout(()=>{nav.classList.remove("white")}, 1000)
+</script>
 </html>

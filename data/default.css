@@ -39,6 +39,7 @@ h5 {
 }
 
 body {
+    margin: 0;
     font-family: sans-serif;
     font-weight: normal;
     text-align: center;
@@ -186,8 +187,47 @@ blockquote > p {
     margin: 0 5pt;
 }
 
-#cwj > svg {
-    scale: 125%;
-    margin-top: 2em;
-    margin-bottom: 4em;
+#nav {
+    position: relative;
+    left: 0;
+    top: 0;
+    width: 100%;
+    padding: 1vw 0;
+    background: #5760a2;
+    overflow: hidden;
+    animation: nav 1s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#nav > a {
+    text-decoration: none;
+    color: rgba(255, 255, 255, 0.5);
+    font-family: "HarmonyOS Sans", sans-serif;
+    font-size: 1.2vw;
+    letter-spacing: 0.3vw;
+    transition: all 200ms;
+    animation: notification 1.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+#nav > a:hover {
+    color: white;
+}
+
+@keyframes nav {
+    from {
+        top: -4vw;
+    }
+    to {
+        top: 0;
+    }
+}
+
+@keyframes notification {
+    from {
+        filter: blur(10pt);
+        color: white;
+    }
+    to {
+        filter: none;
+        color: rgba(255, 255, 255, 0.5);
+    }
 }
