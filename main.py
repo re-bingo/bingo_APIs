@@ -30,11 +30,11 @@ def get_status():
 
 @cache
 def get_badge():
-    return get("https://img.shields.io/badge/Bingo APIs-Muspi Merol> -gray.svg?"
+    return get("https://img.shields.io/badge/Bingo APIs-Muspi Merol -gray.svg?"
                "colorA=5760a2&colorB=475092&style=for-the-badge").text
 
 
-@app.get("/", name="home_page")
+@app.get("/")
 async def home_page(request: Request):
     return Jinja2Templates("./data").TemplateResponse(
         "home.html",
@@ -46,6 +46,16 @@ async def home_page(request: Request):
             "badge": get_badge()
         }
     )
+
+
+@app.get("/apifox", include_in_schema=False)
+async def get_apidoc():
+    return RedirectResponse("https://www.apifox.cn/apidoc/shared-89d1fe63-49c4-4982-a4d7-8c3a4b6a4409/", 308)
+
+
+@app.get("/index.html", include_in_schema=False)
+async def get_homepage():
+    return RedirectResponse("https://cdn.muspimerol.site/bingo.html", 302)
 
 
 class debugger:

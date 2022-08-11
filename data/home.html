@@ -4,10 +4,10 @@
     <meta charset="UTF-8">
     <title>bingo! welcome to homepage!</title>
     <link rel="stylesheet" type="text/css" href="default.css">
-    <link rel="prefetch" as="document" href="/scales/html">
+    <link rel="prefetch" as="document" href="/index.html">
 </head>
 <body>
-<div id="nav"><a href="https://cdn.muspimerol.site/bingo"> 🤩 全新官网上线啦 🤩 </a></div>
+<div id="nav"><a href="/index.html"> 🤩 全新官网上线啦 🤩 </a></div>
 <div id="background">BINGO</div>
 <div id="whole">
     {% autoescape false %}
@@ -24,7 +24,7 @@
     <div> {{ status }}</div>
 
 
-    <h2><b>new 🔈 <a href="/scales/html"> 量表快搜 </a></b></h2>
+    <h2> 🔈 <a href="/scales/html" style="text-underline-offset: 0.25em">直达量表搜索页</a> 🔈 </h2>
 
     <div id="title">
         项 目 简 介 <br>
@@ -70,6 +70,8 @@
 <script>
     const nav = document.getElementById("nav")
     nav.classList.add("white")
-    setTimeout(()=>{nav.classList.remove("white")}, 1000)
+    setTimeout(() => {
+        nav.classList.remove("white")
+    }, 1000)
 </script>
 </html>
