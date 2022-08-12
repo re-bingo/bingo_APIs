@@ -38,12 +38,11 @@ h5 {
     color: #42B983;
 }
 
-html {
-    background: #5760a2;
+body::-webkit-scrollbar {
+    display: none;
 }
 
 body {
-    background: white;
     margin: 0;
     font-family: sans-serif;
     font-weight: normal;
