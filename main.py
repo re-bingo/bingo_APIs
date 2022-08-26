@@ -1,13 +1,11 @@
-from fastapi import FastAPI, HTTPException, Request
+from fastapi import FastAPI, Request
 from fastapi.middleware.cors import CORSMiddleware
 from starlette.responses import RedirectResponse
 from starlette.templating import Jinja2Templates
 from starlette.staticfiles import StaticFiles
 from brotli_asgi import BrotliMiddleware
-from cachetools.func import ttl_cache
 from markdown2 import markdown
 from functools import cache
-from os.path import isfile
 from datetime import date
 from httpx import get
 from core import *
@@ -20,12 +18,6 @@ app.include_router(user_router, prefix="/users", tags=["users"])
 app.include_router(experiment_router, prefix="/experiments", tags=["experiments"])
 app.include_router(scale_router, prefix="/scales", tags=["scales"])
 app.include_router(font_router, prefix="/fonts", tags=["fonts"])
-
-
-@ttl_cache(None, 60 * 60)
-def get_status():
-    return get("https://github-readme-stats.vercel.app/api?"
-               "username=CNSeniorious000&show_icons=true&bg_color=00000000").text
 
 
 @cache
@@ -42,7 +34,6 @@ async def home_page(request: Request):
             "request": request,
             "readme": markdown(open("./readme.md", encoding="utf-8").read()),
             "date": f"—— today is {date.today()} ——",
-            "status": get_status(),
             "badge": get_badge()
         }
     )
