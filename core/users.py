@@ -150,7 +150,6 @@ async def cancel_user_by_id(id: str):
     try:
         return User.users.pop(id).meta
     except KeyError as ex:
-        pass
         return HTTPException(400, f"{ex}")
 
 
